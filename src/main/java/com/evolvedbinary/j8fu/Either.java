@@ -1,0 +1,209 @@
+/**
+ * Copyright © 2016, Evolved Binary Ltd. <tech@evolvedbinary.com>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of the <organization> nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package com.evolvedbinary.j8fu;
+
+import java.util.NoSuchElementException;
+import java.util.function.Function;
+
+/**
+ * A disjoint union, more basic than but similar to {@code scala.util.Either}
+ * with some influences from ScalaZ \/
+ *
+ * @param <L> Type of left parameter
+ * @param <R> Type of right parameter
+ *
+ * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
+ */
+public abstract class Either<L, R> {
+
+    private final boolean isLeft;
+
+    Either(final boolean isLeft) {
+        this.isLeft = isLeft;
+    }
+
+    public final boolean isLeft() {
+        return isLeft;
+    }
+
+    public final boolean isRight() {
+        return !isLeft;
+    }
+
+    public final LeftProjection<L, R> left() {
+        return new LeftProjection<>(this);
+    }
+
+    public final RightProjection<L, R> right() {
+        return new RightProjection<>(this);
+    }
+
+    /**
+     * Map on the right-hand-side of the disjunction
+     *
+     * @param f The function to map with
+     * @return A disjunction after the map is applied to the right
+     *
+     * @param <T> The return type of the map function
+     */
+    @SuppressWarnings("unchecked")
+    public final <T> Either<L, T> map(final Function<R, T> f) {
+        if(isLeft()) {
+            return (Left<L, T>)this;
+        } else {
+            return Right(f.apply(((Right<L, R>)this).value));
+        }
+    }
+
+    /**
+     * Bind through on the right-hand-side of this disjunction
+     *
+     * @param f the function to bind through
+     * @return A disjunction after the map is applied to the right
+     *
+     * @param <LL> The left-type of the map function
+     * @param <T> The return type of the map function
+     */
+    @SuppressWarnings("unchecked")
+    public final <LL extends L, T> Either<LL, T> flatMap(final Function<R, Either<LL, T>> f) {
+        if(isLeft) {
+            return (Left<LL, T>)this;
+        } else {
+            return f.apply(((Right<L, R>)this).value);
+        }
+    }
+
+    /**
+     * Map on the left-hand-side of the disjunction
+     *
+     * @param f The function to map with
+     * @return A disjunction after the map is applied to the left
+     *
+     * @param <T> The return type of the map function
+     */
+    @SuppressWarnings("unchecked")
+    public final <T> Either<T, R> leftMap(final Function<L, T> f) {
+        if(isLeft) {
+            return Left(f.apply(((Left<L, R>)this).value));
+        } else {
+            return (Right<T, R>)this;
+        }
+    }
+
+    /**
+     * Catamorphism. Run the first given function if left,
+     * otherwise the second given function
+     *
+     *
+     * @param <T> The result type from performing the fold
+     * @param lf A function that may be applied to the left-hand-side
+     * @param rf A function that may be applied to the right-hand-side
+     *
+     * @return The result of evaluating the lf or rf
+     *
+     * @param <T> The return type of the fold function
+     */
+    public final <T> T fold(final Function<L, T> lf, final Function<R, T> rf) {
+        if(isLeft) {
+            return lf.apply(((Left<L, R>)this).value);
+        } else {
+            return rf.apply(((Right<L, R>)this).value);
+        }
+    }
+
+    /**
+     * Constructor for an {@link Either.Left}
+     *
+     * @param value the value of the left
+     * @return The {@link Either.Left} instance
+     *
+     * @param <L> the type of the Left of the disjunction
+     * @param <R> the type of the Right of the disjunction
+     */
+    public static <L, R> Either<L, R> Left(final L value) {
+        return new Left<>(value);
+    }
+
+    /**
+     * Constructor for an {@link Either.Right}
+     *
+     * @param value the value of the right
+     * @return The {@link Either.Right} instance
+     *
+     * @param <L> the type of the Left of the disjunction
+     * @param <R> the type of the Right of the disjunction
+     */
+    public static <L, R> Either<L, R> Right(final R value) {
+        return new Right<>(value);
+    }
+
+    public static class Left<L, R> extends Either<L, R> {
+        final L value;
+        private Left(final L value) {
+            super(true);
+            this.value = value;
+        }
+    }
+
+    public static class Right<L, R> extends Either<L, R> {
+        final R value;
+        private Right(final R value) {
+            super(false);
+            this.value = value;
+        }
+    }
+    
+    public final class LeftProjection<L, R> {
+        final Either<L, R> e;
+        private LeftProjection(final Either<L, R> e) {
+            this.e = e;
+        }
+        
+        public final L get() {
+            if(e.isLeft()) {
+                return ((Left<L, R>)e).value;
+            } else {
+                throw new NoSuchElementException("Either#Left value on Right");
+            }
+        }
+    }
+    
+    public final class RightProjection<L, R> {
+        final Either<L, R> e;
+        private RightProjection(final Either<L, R> e) {
+            this.e = e;
+        }
+        
+        public final R get() {
+            if(e.isRight()) {
+                return ((Right<L, R>)e).value;
+            } else {
+                throw new NoSuchElementException("Either#Right value on Left");
+            }
+        }
+    }
+}
