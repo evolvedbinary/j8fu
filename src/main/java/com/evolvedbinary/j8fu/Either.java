@@ -28,6 +28,7 @@ package com.evolvedbinary.j8fu;
 
 import java.util.NoSuchElementException;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * A disjoint union, more basic than but similar to {@code scala.util.Either}
@@ -132,6 +133,62 @@ public abstract class Either<L, R> {
             return lf.apply(((Left<L, R>)this).value);
         } else {
             return rf.apply(((Right<L, R>)this).value);
+        }
+    }
+
+    /**
+     * Return the right value of this disjunction or the given default if left
+     *
+     * @param defaultValue A value to use if this is a Left
+     * @return The right value or the defaultValue
+     */
+    public final R getOrElse(final R defaultValue) {
+        if(isLeft()) {
+            return defaultValue;
+        } else {
+            return ((Right<L, R>)this).value;
+        }
+    }
+
+    /**
+     * Return the right value of this disjunction or the given default if left
+     *
+     * @param lazyDefault A supplier of a value to use if this is a Left
+     * @return The right value or the evaluated lazyDefault
+     */
+    public final R getOrElse(final Supplier<R> lazyDefault) {
+        if(isLeft()) {
+            return lazyDefault.get();
+        } else {
+            return ((Right<L, R>)this).value;
+        }
+    }
+
+    /**
+     * Return this if it is a right, otherwise, return the given value
+     *
+     * @param defaultValue A default value to use if this is a Left
+     * @return This or the defaultValue
+     */
+    public final Either<L, R> orElse(final Either<L, R> defaultValue) {
+        if(isLeft()) {
+            return defaultValue;
+        } else {
+            return this;
+        }
+    }
+
+    /**
+     * Return this if it is a right, otherwise, return the given value
+     *
+     * @param lazyDefault A supplier of a value to use if this is a Left
+     * @return This or the evaluated lazyDefault
+     */
+    public final Either<L, R> orElse(final Supplier<Either<L, R>> lazyDefault) {
+        if(isLeft()) {
+            return lazyDefault.get();
+        } else {
+            return this;
         }
     }
 
