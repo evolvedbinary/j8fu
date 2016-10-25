@@ -86,4 +86,14 @@ public class Tuple2<T1, T2> implements Tuple {
     public <T> T foldRight(final T startValue, final BiFunction<T, Object, T> op) {
         return op.apply(op.apply(startValue, _2), _1);
     }
+
+    @Override
+    public <T0> Tuple3<T0, T1, T2> after(final T0 _0) {
+        return new Tuple3<>(_0, this);
+    }
+
+    @Override
+    public <T3> Tuple3<T1, T2, T3> before(final T3 _3) {
+        return new Tuple3<>(this, _3);
+    }
 }

@@ -51,6 +51,27 @@ public class Tuple4<T1, T2, T3, T4> implements Tuple {
         this._4 = _4;
     }
 
+    public Tuple4(final Tuple2<T1, T2> t12, final Tuple2<T3, T4> t34) {
+        this._1 = t12._1;
+        this._2 = t12._2;
+        this._3 = t34._1;
+        this._4 = t34._2;
+    }
+
+    public Tuple4(final T1 _1, final Tuple3<T2, T3, T4> t234) {
+        this._1 = _1;
+        this._2 = t234._1;
+        this._3 = t234._2;
+        this._4 = t234._3;
+    }
+
+    public Tuple4(final Tuple3<T1, T2, T3> t123, final T4 _4) {
+        this._1 = t123._1;
+        this._2 = t123._2;
+        this._3 = t123._3;
+        this._4 = _4;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof Tuple4 && obj != null) {
@@ -94,5 +115,15 @@ public class Tuple4<T1, T2, T3, T4> implements Tuple {
     @Override
     public <T> T foldRight(final T startValue, final BiFunction<T, Object, T> op) {
         return op.apply(op.apply(op.apply(op.apply(startValue, _4), _3), _2), _1);
+    }
+
+    @Override
+    public <T0> Tuple after(final T0 _0) {
+        throw new UnsupportedOperationException("Tuples greater than size 4 are not yet supported");
+    }
+
+    @Override
+    public <T5> Tuple before(final T5 _5) {
+        throw new UnsupportedOperationException("Tuples greater than size 4 are not yet supported");
     }
 }

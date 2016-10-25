@@ -48,6 +48,18 @@ public class Tuple3<T1, T2, T3> implements Tuple {
         this._3 = _3;
     }
 
+    public Tuple3(final T1 _1, final Tuple2<T2, T3> t23) {
+        this._1 = _1;
+        this._2 = t23._1;
+        this._3 = t23._2;
+    }
+
+    public Tuple3(final Tuple2<T1, T2> t12, final T3 _3) {
+        this._1 = t12._1;
+        this._2 = t12._2;
+        this._3 = _3;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof Tuple3 && obj != null) {
@@ -90,5 +102,15 @@ public class Tuple3<T1, T2, T3> implements Tuple {
     @Override
     public <T> T foldRight(final T startValue, final BiFunction<T, Object, T> op) {
         return op.apply(op.apply(op.apply(startValue, _3), _2), _1);
+    }
+
+    @Override
+    public <T0> Tuple4<T0, T1, T2, T3> after(final T0 _0) {
+        return new Tuple4<>(_0, this);
+    }
+
+    @Override
+    public <T4> Tuple4<T1, T2, T3, T4> before(final T4 _4) {
+        return new Tuple4<>(this, _4);
     }
 }

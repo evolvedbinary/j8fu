@@ -105,4 +105,26 @@ public interface Tuple {
      * @param <T> The value type
      */
     <T> T foldRight(final T startValue, final BiFunction<T, Object, T> op);
+
+    /**
+     * Creates a new tuple which contains the values
+     * of first, followed by the values of this tuple
+     *
+     * @param first The first value in the new Tuple
+     * @return the new larger tuple
+     *
+     * @param <T0> The type of the first value
+     */
+    <T0> Tuple after(final T0 first);
+
+    /**
+     * Creates a new tuple which contains the values
+     * of this tuple, followed by the value of last
+     *
+     * @param last The last value in the new Tuple
+     * @return the new larger tuple
+     *
+     * @param <TN> The type of the last value
+     */
+    <TN> Tuple before(final TN last);
 }
