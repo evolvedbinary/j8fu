@@ -193,6 +193,23 @@ public abstract class Either<L, R> {
     }
 
     /**
+     * Return the value from the right-hand-side of this disjunction or
+     * run the function on the left-hand-side
+     *
+     * @param <RR> The result type
+     * @param lf A function that may be applied to the left-hand-side
+     *
+     * @return The value from the right, or a calculated value from the left
+     */
+    public final <RR extends R> RR valueOr(final Function<L, RR> lf) {
+        if(isLeft()) {
+            return lf.apply(((Left<L, R>)this).value);
+        } else {
+            return ((Right<L, RR>)this).value;
+        }
+    }
+
+    /**
      * Constructor for an {@link Either.Left}
      *
      * @param value the value of the left
