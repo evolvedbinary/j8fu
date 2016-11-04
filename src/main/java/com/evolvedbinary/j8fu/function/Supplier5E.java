@@ -27,17 +27,19 @@
 package com.evolvedbinary.j8fu.function;
 
 /**
- * Similar to {@link java.util.function.BiFunction} but
- * permits a single statically known Exception to be thrown
+ * Similar to {@link SupplierE} but
+ * permits five statically known Exceptions to be thrown
  *
- * @param <T> Function parameter 1 type
- * @param <U> Function parameter 2 type
- * @param <R> Function return type
- * @param <E> Function throws exception type
+ * @param <T> the type of results supplied by this supplier
+ * @param <E1> Function throws exception type
+ * @param <E2> Function throws exception type
+ * @param <E3> Function throws exception type
+ * @param <E4> Function throws exception type
+ * @param <E5> Function throws exception type
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
 @FunctionalInterface
-public interface BiFunctionE<T, U, R, E extends Throwable> {
-    R apply(final T t, final U u) throws E;
+public interface Supplier5E<T, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable, E5 extends Throwable> {
+    T get() throws E1, E2, E3, E4, E5;
 }

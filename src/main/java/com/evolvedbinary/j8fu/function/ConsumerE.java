@@ -28,7 +28,7 @@ package com.evolvedbinary.j8fu.function;
 
 /**
  * Similar to {@link java.util.function.Consumer} but
- * permits a statically know Exception to be thrown
+ * permits a statically known Exception to be thrown
  *
  * @param <T> the type of the input to the operation
  * @param <E> Function throws exception type

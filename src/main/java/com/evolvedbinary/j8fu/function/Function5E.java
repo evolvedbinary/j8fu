@@ -26,18 +26,28 @@
  */
 package com.evolvedbinary.j8fu.function;
 
+import java.util.Objects;
+
 /**
- * Similar to {@link java.util.function.BiFunction} but
- * permits a single statically known Exception to be thrown
+ * Similar to {@link FunctionE} but
+ * permits five statically known Exceptions to be thrown
  *
- * @param <T> Function parameter 1 type
- * @param <U> Function parameter 2 type
+ * @param <T> Function parameter type
  * @param <R> Function return type
- * @param <E> Function throws exception type
+ * @param <E1> Function throws exception type
+ * @param <E2> Function throws exception type
+ * @param <E3> Function throws exception type
+ * @param <E4> Function throws exception type
+ * @param <E5> Function throws exception type
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
 @FunctionalInterface
-public interface BiFunctionE<T, U, R, E extends Throwable> {
-    R apply(final T t, final U u) throws E;
+public interface Function5E<T, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable, E5 extends Throwable> {
+    R apply(final T t) throws E1, E2, E3, E4, E5;
+
+    default <V> Function5E<T, V, E1, E2, E3, E4, E5> andThen(Function5E<? super R, ? extends V, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> after.apply(apply(t));
+    }
 }

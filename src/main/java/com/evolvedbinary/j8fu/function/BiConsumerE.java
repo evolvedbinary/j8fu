@@ -27,11 +27,11 @@
 package com.evolvedbinary.j8fu.function;
 
 /**
- * Similar to {@link com.evolvedbinary.j8fu.function.ConsumerE} but
+ * Similar to {@link ConsumerE} but
  * accepts two arguments
  *
  * @param <T> the type of the first input to the operation
- * @param <U> the type of the first input to the operation
+ * @param <U> the type of the second input to the operation
  * @param <E> Function throws exception type
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>

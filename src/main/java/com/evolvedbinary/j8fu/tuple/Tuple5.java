@@ -29,57 +29,56 @@ package com.evolvedbinary.j8fu.tuple;
 import java.util.function.BiFunction;
 
 /**
- * A tuple of four values
+ * A tuple of five values
  *
  * @param <T1> The type of the first value
  * @param <T2> The type of the second value
  * @param <T3> the type of the third value
  * @param <T4> the type of the fourth value
+ * @param <T5> the type of the fourth value
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
-public class Tuple4<T1, T2, T3, T4> implements Tuple {
+public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
     public final T1 _1;
     public final T2 _2;
     public final T3 _3;
     public final T4 _4;
+    public final T5 _5;
 
-    public Tuple4(final T1 _1, final T2 _2, final T3 _3, final T4 _4) {
+    public Tuple5(final T1 _1, final T2 _2, final T3 _3, final T4 _4, final T5 _5) {
         this._1 = _1;
         this._2 = _2;
         this._3 = _3;
         this._4 = _4;
+        this._5 = _5;
     }
 
-    public Tuple4(final Tuple2<T1, T2> t12, final Tuple2<T3, T4> t34) {
-        this._1 = t12._1;
-        this._2 = t12._2;
-        this._3 = t34._1;
-        this._4 = t34._2;
-    }
-
-    public Tuple4(final T1 _1, final Tuple3<T2, T3, T4> t234) {
+    public Tuple5(final T1 _1, final Tuple4<T2, T3, T4, T5> t2345) {
         this._1 = _1;
-        this._2 = t234._1;
-        this._3 = t234._2;
-        this._4 = t234._3;
+        this._2 = t2345._1;
+        this._3 = t2345._2;
+        this._4 = t2345._3;
+        this._5 = t2345._4;
     }
 
-    public Tuple4(final Tuple3<T1, T2, T3> t123, final T4 _4) {
-        this._1 = t123._1;
-        this._2 = t123._2;
-        this._3 = t123._3;
-        this._4 = _4;
+    public Tuple5(final Tuple4<T1, T2, T3, T4> t1234, final T5 _5) {
+        this._1 = t1234._1;
+        this._2 = t1234._2;
+        this._3 = t1234._3;
+        this._4 = t1234._4;
+        this._5 = _5;
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof Tuple4 && obj != null) {
-            final Tuple4 other = (Tuple4)obj;
+        if (obj instanceof Tuple5 && obj != null) {
+            final Tuple5 other = (Tuple5)obj;
             return isEqual(_1, other._1)
                     && isEqual(_2, other._2)
                     && isEqual(_3, other._3)
-                    && isEqual(_4, other._4);
+                    && isEqual(_4, other._4)
+                    && isEqual(_5, other._5);
         }
         return false;
     }
@@ -102,6 +101,12 @@ public class Tuple4<T1, T2, T3, T4> implements Tuple {
             return isEqual(_1, tuple3._1)
                     && isEqual(_2, tuple3._2)
                     && isEqual(_3, tuple3._3);
+        } else if(other instanceof Tuple4) {
+            final Tuple4 tuple4 = (Tuple4)other;
+            return isEqual(_1, tuple4._1)
+                    && isEqual(_2, tuple4._2)
+                    && isEqual(_3, tuple4._3)
+                    && isEqual(_4, tuple4._4);
         } else {
             return false;
         }
@@ -109,21 +114,21 @@ public class Tuple4<T1, T2, T3, T4> implements Tuple {
 
     @Override
     public <T> T foldLeft(final T startValue, final BiFunction<T, Object, T> op) {
-        return op.apply(op.apply(op.apply(op.apply(startValue, _1), _2), _3), _4);
+        return op.apply(op.apply(op.apply(op.apply(op.apply(startValue, _1), _2), _3), _4), _5);
     }
 
     @Override
     public <T> T foldRight(final T startValue, final BiFunction<T, Object, T> op) {
-        return op.apply(op.apply(op.apply(op.apply(startValue, _4), _3), _2), _1);
+        return op.apply(op.apply(op.apply(op.apply(op.apply(startValue, _5), _4), _3), _2), _1);
     }
 
     @Override
     public <T0> Tuple after(final T0 _0) {
-        return new Tuple5<>(_0, this);
+        throw new UnsupportedOperationException("Tuples greater than size 5 are not yet supported");
     }
 
     @Override
     public <T5> Tuple before(final T5 _5) {
-        return new Tuple5<>(this, _5);
+        throw new UnsupportedOperationException("Tuples greater than size 5 are not yet supported");
     }
 }

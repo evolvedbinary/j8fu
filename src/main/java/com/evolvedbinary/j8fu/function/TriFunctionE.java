@@ -28,7 +28,7 @@ package com.evolvedbinary.j8fu.function;
 
 /**
  * Similar to {@link java.util.function.BiFunction} but
- * takes 3 arguments and permits a single statically know Exception to be thrown
+ * takes 3 arguments and permits a single statically known Exception to be thrown
  *
  * @param <T> Function parameter 1 type
  * @param <U> Function parameter 2 type

@@ -30,7 +30,7 @@ import java.util.Objects;
 
 /**
  * Similar to {@link java.util.function.Function} but
- * permits a single statically know Exception to be thrown
+ * permits a single statically known Exception to be thrown
  *
  * @param <T> Function parameter type
  * @param <R> Function return type

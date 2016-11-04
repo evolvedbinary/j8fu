@@ -28,7 +28,7 @@ package com.evolvedbinary.j8fu.function;
 
 /**
  * Similar to {@link TriFunctionE} but
- * permits three single statically know Exceptions to be thrown
+ * permits three statically known Exceptions to be thrown
  *
  * @param <T> Function parameter 1 type
  * @param <U> Function parameter 2 type

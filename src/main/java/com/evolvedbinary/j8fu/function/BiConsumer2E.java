@@ -27,17 +27,18 @@
 package com.evolvedbinary.j8fu.function;
 
 /**
- * Similar to {@link java.util.function.BiFunction} but
- * permits a single statically known Exception to be thrown
+ * Similar to {@link BiConsumerE}
+ * but permits two statically known
+ * Exceptions to be thrown
  *
- * @param <T> Function parameter 1 type
- * @param <U> Function parameter 2 type
- * @param <R> Function return type
- * @param <E> Function throws exception type
+ * @param <T> Consumer parameter 1 type
+ * @param <U> Consumer parameter 2 type
+ * @param <E1> Function throws exception type
+ * @param <E2> Function throws exception type
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
 @FunctionalInterface
-public interface BiFunctionE<T, U, R, E extends Throwable> {
-    R apply(final T t, final U u) throws E;
+public interface BiConsumer2E<T, U, E1 extends Throwable, E2 extends Throwable> {
+    void accept(T t, U u) throws E1, E2;
 }

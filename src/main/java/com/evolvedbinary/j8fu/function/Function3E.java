@@ -30,7 +30,7 @@ import java.util.Objects;
 
 /**
  * Similar to {@link FunctionE} but
- * permits three statically know Exceptions to be thrown
+ * permits three statically known Exceptions to be thrown
  *
  * @param <T> Function parameter type
  * @param <R> Function return type

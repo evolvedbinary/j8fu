@@ -27,7 +27,7 @@
 package com.evolvedbinary.j8fu.function;
 
 /**
- * Similar to {@link java.util.function.Supplier} but
+ * Similar to {@link SupplierE} but
  * permits three statically known Exceptions to be thrown
  *
  * @param <T> the type of results supplied by this supplier

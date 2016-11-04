@@ -30,7 +30,7 @@ import java.util.Objects;
 
 /**
  * Similar to {@link com.evolvedbinary.j8fu.function.FunctionE} but
- * permits two statically know Exceptions to be thrown
+ * permits two statically known Exceptions to be thrown
  *
  * @param <T> Function parameter type
  * @param <R> Function return type
