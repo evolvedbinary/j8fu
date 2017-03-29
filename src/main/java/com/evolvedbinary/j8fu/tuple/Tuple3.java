@@ -26,6 +26,7 @@
  */
 package com.evolvedbinary.j8fu.tuple;
 
+import java.beans.ConstructorProperties;
 import java.util.function.BiFunction;
 
 /**
@@ -42,6 +43,7 @@ public class Tuple3<T1, T2, T3> implements Tuple {
     public final T2 _2;
     public final T3 _3;
 
+    @ConstructorProperties({"_1", "_2", "_3"})
     public Tuple3(final T1 _1, final T2 _2, final T3 _3) {
         this._1 = _1;
         this._2 = _2;
@@ -58,6 +60,39 @@ public class Tuple3<T1, T2, T3> implements Tuple {
         this._1 = t12._1;
         this._2 = t12._2;
         this._3 = _3;
+    }
+
+    /**
+     * Get the value of _1
+     *
+     * Used for compatibility with javabeans
+     *
+     * @return value of _1
+     */
+    public T1 get_1() {
+        return _1;
+    }
+
+    /**
+     * Get the value of _2
+     *
+     * Used for compatibility with javabeans
+     *
+     * @return value of _2
+     */
+    public T2 get_2() {
+        return _2;
+    }
+
+    /**
+     * Get the value of _3
+     *
+     * Used for compatibility with javabeans
+     *
+     * @return value of _3
+     */
+    public T3 get_3() {
+        return _3;
     }
 
     @Override

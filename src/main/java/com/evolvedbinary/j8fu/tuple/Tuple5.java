@@ -26,6 +26,7 @@
  */
 package com.evolvedbinary.j8fu.tuple;
 
+import java.beans.ConstructorProperties;
 import java.util.function.BiFunction;
 
 /**
@@ -46,6 +47,7 @@ public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
     public final T4 _4;
     public final T5 _5;
 
+    @ConstructorProperties({"_1", "_2", "_3", "_4", "_5"})
     public Tuple5(final T1 _1, final T2 _2, final T3 _3, final T4 _4, final T5 _5) {
         this._1 = _1;
         this._2 = _2;
@@ -68,6 +70,62 @@ public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
         this._3 = t1234._3;
         this._4 = t1234._4;
         this._5 = _5;
+    }
+
+
+    /**
+     * Get the value of _1
+     *
+     * Used for compatibility with javabeans
+     *
+     * @return value of _1
+     */
+    public T1 get_1() {
+        return _1;
+    }
+
+    /**
+     * Get the value of _2
+     *
+     * Used for compatibility with javabeans
+     *
+     * @return value of _2
+     */
+    public T2 get_2() {
+        return _2;
+    }
+
+    /**
+     * Get the value of _3
+     *
+     * Used for compatibility with javabeans
+     *
+     * @return value of _3
+     */
+    public T3 get_3() {
+        return _3;
+    }
+
+    /**
+     * Get the value of _4
+     *
+     * Used for compatibility with javabeans
+     *
+     * @return value of _4
+     */
+    public T4 get_4() {
+        return _4;
+    }
+
+    /**
+     * Get the value of _5
+     *
+     * Used for compatibility with javabeans
+     *
+     * @return value of _5
+     */
+    public T5 get_5() {
+        return _5;
     }
 
     @Override
