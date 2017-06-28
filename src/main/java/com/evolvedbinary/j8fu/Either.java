@@ -241,6 +241,19 @@ public abstract class Either<L, R> {
             super(true);
             this.value = value;
         }
+
+        @Override
+        public boolean equals(final Object other) {
+            if(other == null) {
+                return false;
+            }
+
+            if(other instanceof Left) {
+                return value.equals(((Left)other).value);
+            } else{
+                return value.equals(other);
+            }
+        }
     }
 
     public static class Right<L, R> extends Either<L, R> {
@@ -249,8 +262,21 @@ public abstract class Either<L, R> {
             super(false);
             this.value = value;
         }
+
+        @Override
+        public boolean equals(final Object other) {
+            if(other == null) {
+                return false;
+            }
+
+            if(other instanceof Right) {
+                return value.equals(((Right)other).value);
+            } else{
+                return value.equals(other);
+            }
+        }
     }
-    
+
     public final class LeftProjection<L, R> {
         final Either<L, R> e;
         private LeftProjection(final Either<L, R> e) {
