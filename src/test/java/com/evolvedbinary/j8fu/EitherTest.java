@@ -28,8 +28,13 @@ package com.evolvedbinary.j8fu;
 
 import org.junit.Test;
 
+import java.util.Optional;
+import java.util.function.Function;
+
 import static com.evolvedbinary.j8fu.Either.Left;
 import static com.evolvedbinary.j8fu.Either.Right;
+import static java.util.function.Function.identity;
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -45,6 +50,150 @@ public class EitherTest {
 
         assertEquals(Right(true), Right(true));
         assertNotEquals(Right(true), Right(false));
+    }
+
+    @Test
+    public void map() {
+        Either<Integer, String> either1 = Right("hello");
+        either1 = either1.map(str -> str + " world");
+        assertEquals(Right("hello world"), either1);
+
+        Either<Integer, String> either2 = Left(1234);
+        either1 = either1.map(str -> str + " world");
+        assertEquals(Left(1234), either2);
+    }
+
+    @Test
+    public void leftMap() {
+        Either<Double, String> either1 = Right("hello");
+        either1 = either1.leftMap(Math::sqrt);
+        assertEquals(Right("hello"), either1);
+
+        Either<Double, String> either2 = Left(100d);
+        either2 = either2.leftMap(Math::sqrt);
+        assertEquals(Left(10d), either2);
+    }
+
+    @Test
+    public void flatMap() {
+        Either<Integer, String> either1 = Right("hello");
+        Either<Integer, String> either2 = Right("world");
+        final Either<Integer, String> eitherResult1 = either1.flatMap(str1 -> either2.map(str2 -> str1 + " " + str2));
+        assertEquals(Right("hello world"), eitherResult1);
+
+        Either<Integer, String> either3 = Left(10);
+        Either<Integer, String> either4 = Right("hello");
+        final Either<Integer, String> eitherResult2 = either3.flatMap(str1 -> either4.map(str2 -> str1 + " " + str2));
+        assertEquals(Right("hello"), either1);
+    }
+
+    @Test
+    public void fold() {
+        final Either<Integer, String> either1 = Right("hello");
+        final String result1 = either1.fold(i -> i.toString(), identity());
+        assertEquals("hello", result1);
+
+        final Either<Integer, String> either2 = Left(52);
+        final String result2 = either2.fold(i -> i.toString(), identity());
+        assertEquals("52", result2);
+
+        final Either<Integer, Double> either3 = Right(100.786);
+        final String result3 = either3.fold(i -> i.toString(), d -> d.toString());
+        assertEquals("100.786", result3);
+
+        final Either<Integer, Double> either4 = Left(1234);
+        final String result4 = either4.fold(i -> i.toString(), d -> d.toString());
+        assertEquals("1234", result4);
+    }
+
+    @Test
+    public void getOrElse() {
+        final Either<Integer, String> either1 = Right("hello");
+        assertEquals("hello", either1.getOrElse("goodbye"));
+
+        final Either<Integer, String> either2 = Left(99);
+        assertEquals("goodbye", either2.getOrElse("goodbye"));
+    }
+
+    @Test
+    public void getOrElse_lazy() {
+        final Either<Integer, String> either1 = Right("hello");
+        assertEquals("hello", either1.getOrElse(() -> "goodbye"));
+
+        final Either<Integer, String> either2 = Left(99);
+        assertEquals("goodbye", either2.getOrElse(() -> "goodbye"));
+    }
+
+    @Test
+    public void orElse() {
+        final Either<Integer, String> either1 = Right("hello");
+        final Either<Integer, String> either2 = Right("goodbye");
+        assertEquals(Right("hello"), either1.orElse(either2));
+
+        final Either<Integer, String> either3 = Left(123);
+        final Either<Integer, String> either4 = Right("goodbye");
+        assertEquals(Right("goodbye"), either3.orElse(either4));
+
+        final Either<Integer, String> either5 = Right("hello");
+        final Either<Integer, String> either6 = Left(123);
+        assertEquals(Right("hello"), either5.orElse(either6));
+
+        final Either<Integer, String> either7 = Left(123);
+        final Either<Integer, String> either8 = Left(789);
+        assertEquals(Left(789), either7.orElse(either8));
+    }
+
+    @Test
+    public void orElse_lazy() {
+        final Either<Integer, String> either1 = Right("hello");
+        assertEquals(Right("hello"), either1.orElse(() -> Right("goodbye")));
+
+        final Either<Integer, String> either3 = Left(123);
+        assertEquals(Right("goodbye"), either3.orElse(() -> Right("goodbye")));
+
+        final Either<Integer, String> either5 = Right("hello");
+        assertEquals(Right("hello"), either5.orElse(() -> Left(123)));
+
+        final Either<Integer, String> either7 = Left(123);
+        assertEquals(Left(789), either7.orElse(() -> Left(789)));
+    }
+
+    @Test
+    public void valueOr() {
+        final Either<Integer, String> either1 = Right("hello");
+        assertEquals("hello", either1.valueOr(left -> left.toString()));
+
+        final Either<Integer, String> either3 = Left(123);
+        assertEquals("123", either3.valueOr(left -> left.toString()));
+
+        final Either<Integer, String> either5 = Right("hello");
+        assertEquals("hello", either5.valueOr(left -> left.toString()));
+
+        final Either<Integer, String> either7 = Left(789);
+        assertEquals("789", either7.valueOr(left -> left.toString()));
+    }
+
+    @Test
+    public void swap() {
+        final Either<Integer, String> either1 = Right("hello");
+        final Either<String, Integer> either2 = either1.swap();
+        assertTrue(either2.isLeft());
+
+        final Either<Integer, String> either3 = Left(123);
+        final Either<String, Integer> either4 = either3.swap();
+        assertFalse(either4.isLeft());
+    }
+
+    @Test
+    public void toOptional() {
+        final Either<Integer, String> either1 = Right("hello");
+        final Optional<String> optional1 = either1.toOptional();
+        assertTrue(optional1.isPresent());
+        assertEquals("hello", optional1.get());
+
+        final Either<Integer, String> either2 = Left(5678);
+        final Optional<String> optional2 = either2.toOptional();
+        assertFalse(optional2.isPresent());
     }
 
     @Test

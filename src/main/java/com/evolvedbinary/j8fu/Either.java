@@ -27,6 +27,7 @@
 package com.evolvedbinary.j8fu;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -210,6 +211,26 @@ public abstract class Either<L, R> {
     }
 
     /**
+     * Flip the left/right values in this disjunction.
+     *
+     * @return An Either with the left and right swapped
+     */
+    public Either<R, L> swap() {
+        return fold(Either::Right, Either::Left);
+    }
+
+    /**
+     * Return an empty optional or optional with the element from the right of this disjunction.
+     *
+     * Useful to sweep errors under the carpet.
+     *
+     * @return An Optional.of(right) or else {@link Optional#EMPTY}
+     */
+    public Optional<R> toOptional() {
+        return fold(l -> Optional.empty(), Optional::of);
+    }
+
+    /**
      * Constructor for an {@link Either.Left}
      *
      * @param value the value of the left
@@ -243,6 +264,11 @@ public abstract class Either<L, R> {
         }
 
         @Override
+        public String toString() {
+            return "Left(" + value + ')';
+        }
+
+        @Override
         public boolean equals(final Object other) {
             if(other == null) {
                 return false;
@@ -261,6 +287,11 @@ public abstract class Either<L, R> {
         private Right(final R value) {
             super(false);
             this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return "Right(" + value + ')';
         }
 
         @Override
