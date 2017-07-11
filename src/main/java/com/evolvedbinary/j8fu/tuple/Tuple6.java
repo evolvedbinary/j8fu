@@ -30,46 +30,51 @@ import java.beans.ConstructorProperties;
 import java.util.function.BiFunction;
 
 /**
- * A tuple of five values
+ * A tuple of six values
  *
  * @param <T1> The type of the first value
  * @param <T2> The type of the second value
  * @param <T3> the type of the third value
  * @param <T4> the type of the fourth value
- * @param <T5> the type of the fourth value
+ * @param <T5> the type of the fifth value
+ * @param <T6> the type of the sixth value
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
-public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
+public class Tuple6<T1, T2, T3, T4, T5, T6> implements Tuple {
     public final T1 _1;
     public final T2 _2;
     public final T3 _3;
     public final T4 _4;
     public final T5 _5;
+    public final T6 _6;
 
-    @ConstructorProperties({"_1", "_2", "_3", "_4", "_5"})
-    public Tuple5(final T1 _1, final T2 _2, final T3 _3, final T4 _4, final T5 _5) {
+    @ConstructorProperties({"_1", "_2", "_3", "_4", "_5", "_6"})
+    public Tuple6(final T1 _1, final T2 _2, final T3 _3, final T4 _4, final T5 _5, final T6 _6) {
         this._1 = _1;
         this._2 = _2;
         this._3 = _3;
         this._4 = _4;
         this._5 = _5;
+        this._6 = _6;
     }
 
-    public Tuple5(final T1 _1, final Tuple4<T2, T3, T4, T5> t2345) {
+    public Tuple6(final T1 _1, final Tuple5<T2, T3, T4, T5, T6> t23456) {
         this._1 = _1;
-        this._2 = t2345._1;
-        this._3 = t2345._2;
-        this._4 = t2345._3;
-        this._5 = t2345._4;
+        this._2 = t23456._1;
+        this._3 = t23456._2;
+        this._4 = t23456._3;
+        this._5 = t23456._4;
+        this._6 = t23456._5;
     }
 
-    public Tuple5(final Tuple4<T1, T2, T3, T4> t1234, final T5 _5) {
-        this._1 = t1234._1;
-        this._2 = t1234._2;
-        this._3 = t1234._3;
-        this._4 = t1234._4;
-        this._5 = _5;
+    public Tuple6(final Tuple5<T1, T2, T3, T4, T5> t12345, final T6 _6) {
+        this._1 = t12345._1;
+        this._2 = t12345._2;
+        this._3 = t12345._3;
+        this._4 = t12345._4;
+        this._5 = t12345._5;
+        this._6 = _6;
     }
 
 
@@ -128,30 +133,34 @@ public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
         return _5;
     }
 
+    /**
+     * Get the value of _6
+     *
+     * Used for compatibility with javabeans
+     *
+     * @return value of _6
+     */
+    public T6 get_6() {
+        return _6;
+    }
+
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof Tuple5 && obj != null) {
-            final Tuple5 other = (Tuple5)obj;
+        if (obj instanceof Tuple6 && obj != null) {
+            final Tuple6 other = (Tuple6)obj;
             return isEqual(_1, other._1)
                     && isEqual(_2, other._2)
                     && isEqual(_3, other._3)
                     && isEqual(_4, other._4)
-                    && isEqual(_5, other._5);
+                    && isEqual(_5, other._5)
+                    && isEqual(_6, other._6);
         }
         return false;
     }
 
     @Override
     public boolean isPrefixOf(final Tuple other) {
-        if(other == null) {
-            return false;
-        } else if(other instanceof Tuple6) {
-            final Tuple6 tuple6 = (Tuple6) other;
-            return isEqual(_1, tuple6._1)
-                    && isEqual(_2, tuple6._2);
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -173,6 +182,13 @@ public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
                     && isEqual(_2, tuple4._2)
                     && isEqual(_3, tuple4._3)
                     && isEqual(_4, tuple4._4);
+        } else if(other instanceof Tuple5) {
+            final Tuple5 tuple5 = (Tuple5)other;
+            return isEqual(_1, tuple5._1)
+                    && isEqual(_2, tuple5._2)
+                    && isEqual(_3, tuple5._3)
+                    && isEqual(_4, tuple5._4)
+                    && isEqual(_5, tuple5._5);
         } else {
             return false;
         }
@@ -180,21 +196,21 @@ public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
 
     @Override
     public <T> T foldLeft(final T startValue, final BiFunction<T, Object, T> op) {
-        return op.apply(op.apply(op.apply(op.apply(op.apply(startValue, _1), _2), _3), _4), _5);
+        return op.apply(op.apply(op.apply(op.apply(op.apply(op.apply(startValue, _1), _2), _3), _4), _5), _6);
     }
 
     @Override
     public <T> T foldRight(final T startValue, final BiFunction<T, Object, T> op) {
-        return op.apply(op.apply(op.apply(op.apply(op.apply(startValue, _5), _4), _3), _2), _1);
+        return op.apply(op.apply(op.apply(op.apply(op.apply(op.apply(startValue, _6), _5), _4), _3), _2), _1);
     }
 
     @Override
     public <T0> Tuple after(final T0 _0) {
-        throw new UnsupportedOperationException("Tuples greater than size 5 are not yet supported");
+        throw new UnsupportedOperationException("Tuples greater than size 6 are not yet supported");
     }
 
     @Override
     public <T5> Tuple before(final T5 _5) {
-        throw new UnsupportedOperationException("Tuples greater than size 5 are not yet supported");
+        throw new UnsupportedOperationException("Tuples greater than size 6 are not yet supported");
     }
 }

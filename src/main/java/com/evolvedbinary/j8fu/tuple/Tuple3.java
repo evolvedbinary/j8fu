@@ -108,14 +108,23 @@ public class Tuple3<T1, T2, T3> implements Tuple {
 
     @Override
     public boolean isPrefixOf(final Tuple other) {
-        if(other == null || !(other instanceof Tuple4)) {
+        if(other == null) {
+            return false;
+        } else if(other instanceof Tuple4) {
+            final Tuple4 tuple4 = (Tuple4)other;
+            return isEqual(_1, tuple4._1)
+                    && isEqual(_2, tuple4._2);
+        } else if(other instanceof Tuple5) {
+            final Tuple5 tuple5 = (Tuple5) other;
+            return isEqual(_1, tuple5._1)
+                    && isEqual(_2, tuple5._2);
+        } else if(other instanceof Tuple6) {
+            final Tuple6 tuple6 = (Tuple6) other;
+            return isEqual(_1, tuple6._1)
+                    && isEqual(_2, tuple6._2);
+        } else {
             return false;
         }
-
-        final Tuple4 tuple4 = (Tuple4)other;
-        return isEqual(_1, tuple4._1)
-                && isEqual(_2, tuple4._2)
-                && isEqual(_3, tuple4._3);
     }
 
     @Override

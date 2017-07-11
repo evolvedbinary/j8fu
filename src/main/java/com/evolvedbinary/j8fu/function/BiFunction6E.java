@@ -27,22 +27,23 @@
 package com.evolvedbinary.j8fu.function;
 
 /**
- * Similar to {@link TriFunctionE} but
- * permits five statically known Exceptions to be thrown
+ * Similar to {@link BiFunctionE} but
+ * permits six statically known Exceptions to be thrown
  *
  * @param <T> Function parameter 1 type
  * @param <U> Function parameter 2 type
- * @param <V> Function parameter 3 type
  * @param <R> Function return type
  * @param <E1> Function throws exception type
  * @param <E2> Function throws exception type
  * @param <E3> Function throws exception type
  * @param <E4> Function throws exception type
  * @param <E5> Function throws exception type
+ * @param <E6> Function throws exception type
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
 @FunctionalInterface
-public interface TriFunction5E<T, U, V, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable, E5 extends Throwable> {
-    R apply(final T t, final U u, final V v) throws E1, E2, E3, E4, E5;
+public interface BiFunction6E<T, U, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable,
+        E4 extends Throwable, E5 extends Throwable, E6 extends Throwable> {
+    R apply(final T t, final U u) throws E1, E2, E3, E4, E5, E6;
 }

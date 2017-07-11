@@ -91,6 +91,14 @@ public class Tuple2<T1, T2> implements Tuple {
             final Tuple4 tuple4 = (Tuple4)other;
             return isEqual(_1, tuple4._1)
                     && isEqual(_2, tuple4._2);
+        } else if(other instanceof Tuple5) {
+            final Tuple5 tuple5 = (Tuple5) other;
+            return isEqual(_1, tuple5._1)
+                    && isEqual(_2, tuple5._2);
+        } else if(other instanceof Tuple6) {
+            final Tuple6 tuple6 = (Tuple6) other;
+            return isEqual(_1, tuple6._1)
+                    && isEqual(_2, tuple6._2);
         } else {
             return false;
         }
