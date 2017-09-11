@@ -27,6 +27,8 @@
 package com.evolvedbinary.j8fu.function;
 
 import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Similar to {@link FunctionE} but
@@ -42,10 +44,357 @@ import java.util.Objects;
  */
 @FunctionalInterface
 public interface Function3E<T, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable> {
+
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param t the function argument
+     * @return the function result
+     *
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     */
     R apply(final T t) throws E1, E2, E3;
 
-    default <V> Function3E<T, V, E1, E2, E3> andThen(Function3E<? super R, ? extends V, ? extends E1, ? extends E2, ? extends E3> after) {
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of input to the {@code before} function, and to the
+     *           composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     *
+     * @see #andThen(Function3E)
+     */
+    default <V> Function3E<V, R, E1, E2, E3> compose(final Function3E<? super V, ? extends T, ? extends E1, ? extends E2, ? extends E3> before) {
+        Objects.requireNonNull(before);
+        return (V v) -> apply(before.apply(v));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <A> the type of input to the first argument of the {@code before}
+     *           function, and to the composed function
+     * @param <B> the type of input to the second argument of the {@code before}
+     *           function, and to the composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     */
+    default <A, B> BiFunction3E<A, B, R, E1, E2, E3> compose(final BiFunction3E<? super A, ? super B, ? extends T, ? extends E1, ? extends E2, ? extends E3> before) {
+        Objects.requireNonNull(before);
+        return (a, b) -> apply(before.apply(a, b));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <A> the type of input to the first argument of the {@code before}
+     *           function, and to the composed function
+     * @param <B> the type of input to the second argument of the {@code before}
+     *           function, and to the composed function
+     * @param <C> the type of input to the third argument of the {@code before}
+     *           function, and to the composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     */
+    default <A, B, C> TriFunction3E<A, B, C, R, E1, E2, E3> compose(final TriFunction3E<? super A, ? super B, ? super C, ? extends T, ? extends E1, ? extends E2, ? extends E3> before) {
+        Objects.requireNonNull(before);
+        return (a, b, c) -> apply(before.apply(a, b, c));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of input to the {@code before} function, and to the
+     *           composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     *
+     * @see #andThen(Function2E)
+     */
+    default <V> Function3E<V, R, E1, E2, E3> compose(final Function2E<? super V, ? extends T, ? extends E1, ? extends E2> before) {
+        Objects.requireNonNull(before);
+        return (V v) -> apply(before.apply(v));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <A> the type of input to the first argument of the {@code before}
+     *           function, and to the composed function
+     * @param <B> the type of input to the second argument of the {@code before}
+     *           function, and to the composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     */
+    default <A, B> BiFunction3E<A, B, R, E1, E2, E3> compose(final BiFunction2E<? super A, ? super B, ? extends T, ? extends E1, ? extends E2> before) {
+        Objects.requireNonNull(before);
+        return (a, b) -> apply(before.apply(a, b));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <A> the type of input to the first argument of the {@code before}
+     *           function, and to the composed function
+     * @param <B> the type of input to the second argument of the {@code before}
+     *           function, and to the composed function
+     * @param <C> the type of input to the third argument of the {@code before}
+     *           function, and to the composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     */
+    default <A, B, C> TriFunction3E<A, B, C, R, E1, E2, E3> compose(final TriFunction2E<? super A, ? super B, ? super C, ? extends T, ? extends E1, ? extends E2> before) {
+        Objects.requireNonNull(before);
+        return (a, b, c) -> apply(before.apply(a, b, c));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of input to the {@code before} function, and to the
+     *           composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     *
+     * @see #andThen(FunctionE)
+     */
+    default <V> Function3E<V, R, E1, E2, E3> compose(final FunctionE<? super V, ? extends T, ? extends E1> before) {
+        Objects.requireNonNull(before);
+        return (V v) -> apply(before.apply(v));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <A> the type of input to the first argument of the {@code before}
+     *           function, and to the composed function
+     * @param <B> the type of input to the second argument of the {@code before}
+     *           function, and to the composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     */
+    default <A, B> BiFunction3E<A, B, R, E1, E2, E3> compose(final BiFunctionE<? super A, ? super B, ? extends T, ? extends E1> before) {
+        Objects.requireNonNull(before);
+        return (a, b) -> apply(before.apply(a, b));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <A> the type of input to the first argument of the {@code before}
+     *           function, and to the composed function
+     * @param <B> the type of input to the second argument of the {@code before}
+     *           function, and to the composed function
+     * @param <C> the type of input to the third argument of the {@code before}
+     *           function, and to the composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     */
+    default <A, B, C> TriFunction3E<A, B, C, R, E1, E2, E3> compose(final TriFunctionE<? super A, ? super B, ? super C, ? extends T, ? extends E1> before) {
+        Objects.requireNonNull(before);
+        return (a, b, c) -> apply(before.apply(a, b, c));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of input to the {@code before} function, and to the
+     *           composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     *
+     * @see #andThen(Function)
+     */
+    default <V> Function3E<V, R, E1, E2, E3> compose(final Function<? super V, ? extends T> before) {
+        Objects.requireNonNull(before);
+        return (V v) -> apply(before.apply(v));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <A> the type of input to the first argument of the {@code before}
+     *           function, and to the composed function
+     * @param <B> the type of input to the second argument of the {@code before}
+     *           function, and to the composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     */
+    default <A, B> BiFunction3E<A, B, R, E1, E2, E3> compose(final BiFunction<? super A, ? super B, ? extends T> before) {
+        Objects.requireNonNull(before);
+        return (a, b) -> apply(before.apply(a, b));
+    }
+
+    /**
+     * Returns a composed function that first applies the {@code before}
+     * function to its input, and then applies this function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <A> the type of input to the first argument of the {@code before}
+     *           function, and to the composed function
+     * @param <B> the type of input to the second argument of the {@code before}
+     *           function, and to the composed function
+     * @param <C> the type of input to the third argument of the {@code before}
+     *           function, and to the composed function
+     * @param before the function to apply before this function is applied
+     * @return a composed function that first applies the {@code before}
+     * function and then applies this function
+     * @throws NullPointerException if before is null
+     */
+    default <A, B, C> TriFunction3E<A, B, C, R, E1, E2, E3> compose(final TriFunction<? super A, ? super B, ? super C, ? extends T> before) {
+        Objects.requireNonNull(before);
+        return (a, b, c) -> apply(before.apply(a, b, c));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     *
+     * @see #compose(Function3E)
+     */
+    default <V> Function3E<T, V, E1, E2, E3> andThen(final Function3E<? super R, ? extends V, ? extends E1, ? extends E2, ? extends E3> after) {
         Objects.requireNonNull(after);
         return (T t) -> after.apply(apply(t));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     *
+     * @see #compose(Function2E)
+     */
+    default <V> Function3E<T, V, E1, E2, E3> andThen(final Function2E<? super R, ? extends V, ? extends E1, ? extends E2> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> after.apply(apply(t));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     *
+     * @see #compose(FunctionE)
+     */
+    default <V> Function3E<T, V, E1, E2, E3> andThen(final FunctionE<? super R, ? extends V, ? extends E1> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> after.apply(apply(t));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     *
+     * @see #compose(Function)
+     */
+    default <V> Function3E<T, V, E1, E2, E3> andThen(final Function<? super R, ? extends V> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> after.apply(apply(t));
+    }
+
+    /**
+     * Returns a function that always returns its input argument.
+     *
+     * @param <T> the type of the input and output objects to the function
+     * @param <E1> Function throws exception type
+     * @param <E2> Function throws exception type
+     * @param <E3> Function throws exception type
+     * @return a function that always returns its input argument
+     */
+    static <T, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable> Function3E<T, T, E1, E2, E3> identity() {
+        return t -> t;
     }
 }

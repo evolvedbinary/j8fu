@@ -37,5 +37,13 @@ package com.evolvedbinary.j8fu.function;
  */
 @FunctionalInterface
 public interface SupplierE<T, E extends Throwable> {
+
+    /**
+     * Gets a result.
+     *
+     * @return a result
+     *
+     * @throws E An exception of type {@code E}
+     */
     T get() throws E;
 }

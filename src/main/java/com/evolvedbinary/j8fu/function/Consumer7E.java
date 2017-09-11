@@ -26,6 +26,9 @@
  */
 package com.evolvedbinary.j8fu.function;
 
+import java.util.Objects;
+import java.util.function.Consumer;
+
 /**
  * Similar to {@link ConsumerE} but
  * permits seven statically known Exceptions to be thrown
@@ -44,5 +47,155 @@ package com.evolvedbinary.j8fu.function;
 @FunctionalInterface
 public interface Consumer7E<T, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable,
         E4 extends Throwable, E5 extends Throwable, E6 extends Throwable, E7 extends Throwable> {
+
+    /**
+     * Performs this operation on the given argument.
+     *
+     * @param t the input argument
+     *
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     * @throws E4 An exception of type {@code E4}
+     * @throws E5 An exception of type {@code E5}
+     * @throws E6 An exception of type {@code E6}
+     * @throws E7 An exception of type {@code E7}
+     */
     void accept(T t) throws E1, E2, E3, E4, E5, E6, E7;
+
+    /**
+     * Returns a composed {@code Consumer7E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code Consumer7E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default Consumer7E<T, E1, E2, E3, E4, E5, E6, E7> andThen(final Consumer7E<? super T, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5, ? extends E6, ? extends E7> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
+
+    /**
+     * Returns a composed {@code Consumer7E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code Consumer7E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default Consumer7E<T, E1, E2, E3, E4, E5, E6, E7> andThen(final Consumer6E<? super T, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5, ? extends E6> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
+
+    /**
+     * Returns a composed {@code Consumer7E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code Consumer7E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default Consumer7E<T, E1, E2, E3, E4, E5, E6, E7> andThen(final Consumer5E<? super T, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
+
+    /**
+     * Returns a composed {@code Consumer7E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code Consumer7E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default Consumer7E<T, E1, E2, E3, E4, E5, E6, E7> andThen(final Consumer4E<? super T, ? extends E1, ? extends E2, ? extends E3, ? extends E4> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
+
+    /**
+     * Returns a composed {@code Consumer7E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code Consumer7E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default Consumer7E<T, E1, E2, E3, E4, E5, E6, E7> andThen(final Consumer3E<? super T, ? extends E1, ? extends E2, ? extends E3> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
+
+    /**
+     * Returns a composed {@code Consumer7E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code Consumer7E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default Consumer7E<T, E1, E2, E3, E4, E5, E6, E7> andThen(final Consumer2E<? super T, ? extends E1, ? extends E2> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
+
+    /**
+     * Returns a composed {@code Consumer7E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code Consumer7E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default Consumer7E<T, E1, E2, E3, E4, E5, E6, E7> andThen(final ConsumerE<? super T, ? extends E1> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
+
+    /**
+     * Returns a composed {@code Consumer7E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code Consumer7E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default Consumer7E<T, E1, E2, E3, E4, E5, E6, E7> andThen(final Consumer<? super T> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
 }

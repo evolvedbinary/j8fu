@@ -43,5 +43,18 @@ package com.evolvedbinary.j8fu.function;
 @FunctionalInterface
 public interface Supplier6E<T, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable,
         E5 extends Throwable, E6 extends Throwable> {
+
+    /**
+     * Gets a result.
+     *
+     * @return a result
+     *
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     * @throws E4 An exception of type {@code E4}
+     * @throws E5 An exception of type {@code E5}
+     * @throws E6 An exception of type {@code E6}
+     */
     T get() throws E1, E2, E3, E4, E5, E6;
 }

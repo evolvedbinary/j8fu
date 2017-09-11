@@ -29,18 +29,17 @@ package com.evolvedbinary.j8fu.function;
 import java.util.Objects;
 
 /**
- * Similar to {@link BiConsumerE} but
+ * Similar to {@link java.util.function.BiConsumer} but
  * accepts three arguments
  *
  * @param <T> the type of the first input to the operation
  * @param <U> the type of the second input to the operation
  * @param <U> the type of the third input to the operation
- * @param <E> Function throws exception type
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
 @FunctionalInterface
-public interface TriConsumerE<T, U, V, E extends Throwable> {
+public interface TriConsumer<T, U, V> {
 
     /**
      * Performs this operation on the given arguments.
@@ -48,24 +47,22 @@ public interface TriConsumerE<T, U, V, E extends Throwable> {
      * @param t the first input argument
      * @param u the second input argument
      * @param v the third input argument
-     *
-     * @throws E An exception of type {@code E}
      */
-    void accept(T t, U u, V v) throws E;
+    void accept(T t, U u, V v);
 
     /**
-     * Returns a composed {@code TriConsumerE} that performs, in sequence, this
+     * Returns a composed {@code TriConsumer} that performs, in sequence, this
      * operation followed by the {@code after} operation. If performing either
      * operation throws an exception, it is relayed to the caller of the
      * composed operation.  If performing this operation throws an exception,
      * the {@code after} operation will not be performed.
      *
      * @param after the operation to perform after this operation
-     * @return a composed {@code TriConsumerE} that performs in sequence this
+     * @return a composed {@code TriConsumer} that performs in sequence this
      * operation followed by the {@code after} operation
      * @throws NullPointerException if {@code after} is null
      */
-    default TriConsumerE<T, U, V, E> andThen(final TriConsumerE<? super T, ? super U,  ? super V, ? extends E> after) {
+    default TriConsumer<T, U, V> andThen(final TriConsumer<? super T, ? super U, ? super V> after) {
         Objects.requireNonNull(after);
 
         return (l, r, v) -> {

@@ -26,6 +26,9 @@
  */
 package com.evolvedbinary.j8fu.function;
 
+import java.util.Objects;
+import java.util.function.BiConsumer;
+
 /**
  * Similar to {@link BiConsumerE}
  * but permits five statically known
@@ -43,5 +46,144 @@ package com.evolvedbinary.j8fu.function;
  */
 @FunctionalInterface
 public interface BiConsumer5E<T, U, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable, E5 extends Throwable> {
+
+    /**
+     * Performs this operation on the given arguments.
+     *
+     * @param t the first input argument
+     * @param u the second input argument
+     *
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     * @throws E4 An exception of type {@code E4}
+     * @throws E5 An exception of type {@code E5}
+     */
     void accept(T t, U u) throws E1, E2, E3, E4, E5;
+
+    /**
+     * Returns a composed {@code BiConsumer5E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code BiConsumer5E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default BiConsumer5E<T, U, E1, E2, E3, E4, E5> andThen(final BiConsumer5E<? super T, ? super U, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r) -> {
+            accept(l, r);
+            after.accept(l, r);
+        };
+    }
+
+    /**
+     * Returns a composed {@code BiConsumer5E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code BiConsumer5E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default BiConsumer5E<T, U, E1, E2, E3, E4, E5> andThen(final BiConsumer4E<? super T, ? super U, ? extends E1, ? extends E2, ? extends E3, ? extends E4> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r) -> {
+            accept(l, r);
+            after.accept(l, r);
+        };
+    }
+
+    /**
+     * Returns a composed {@code BiConsumer5E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code BiConsumer5E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default BiConsumer5E<T, U, E1, E2, E3, E4, E5> andThen(final BiConsumer3E<? super T, ? super U, ? extends E1, ? extends E2, ? extends E3> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r) -> {
+            accept(l, r);
+            after.accept(l, r);
+        };
+    }
+
+    /**
+     * Returns a composed {@code BiConsumer5E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code BiConsumer5E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default BiConsumer5E<T, U, E1, E2, E3, E4, E5> andThen(final BiConsumer2E<? super T, ? super U, ? extends E1, ? extends E2> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r) -> {
+            accept(l, r);
+            after.accept(l, r);
+        };
+    }
+
+    /**
+     * Returns a composed {@code BiConsumer5E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code BiConsumer5E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default BiConsumer5E<T, U, E1, E2, E3, E4, E5> andThen(final BiConsumerE<? super T, ? super U, ? extends E1> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r) -> {
+            accept(l, r);
+            after.accept(l, r);
+        };
+    }
+
+    /**
+     * Returns a composed {@code BiConsumer5E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code BiConsumer5E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default BiConsumer5E<T, U, E1, E2, E3, E4, E5> andThen(final BiConsumer<? super T, ? super U> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r) -> {
+            accept(l, r);
+            after.accept(l, r);
+        };
+    }
 }

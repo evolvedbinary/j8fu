@@ -26,6 +26,9 @@
  */
 package com.evolvedbinary.j8fu.function;
 
+import java.util.Objects;
+import java.util.function.Function;
+
 /**
  * Similar to {@link TriFunctionE} but
  * permits two statically known Exceptions to be thrown
@@ -41,5 +44,71 @@ package com.evolvedbinary.j8fu.function;
  */
 @FunctionalInterface
 public interface TriFunction2E<T, U, V, R, E1 extends Throwable, E2 extends Throwable> {
+
+    /**
+     * Applies this function to the given arguments.
+     *
+     * @param t the first function argument
+     * @param u the second function argument
+     * @param v the third function argument
+     * @return the function result
+     *
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     */
     R apply(final T t, final U u, final V v) throws E1, E2;
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <W> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     */
+    default <W> TriFunction2E<T, U, V, W, E1, E2> andThen(final Function2E<? super R, ? extends W, ? extends E1, ? extends E2> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u, V v) -> after.apply(apply(t, u, v));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <W> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     */
+    default <W> TriFunction2E<T, U, V, W, E1, E2> andThen(final FunctionE<? super R, ? extends W, ? extends E1> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u, V v) -> after.apply(apply(t, u, v));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <W> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     */
+    default <W> TriFunction2E<T, U, V, W, E1, E2> andThen(final Function<? super R, ? extends W> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u, V v) -> after.apply(apply(t, u, v));
+    }
 }

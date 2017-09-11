@@ -26,6 +26,8 @@
  */
 package com.evolvedbinary.j8fu.function;
 
+import java.util.Objects;
+
 /**
  * Similar to {@link TriConsumerE} but
  * permits four statically known Exceptions to be thrown
@@ -42,5 +44,123 @@ package com.evolvedbinary.j8fu.function;
  */
 @FunctionalInterface
 public interface TriConsumer4E<T, U, V, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable> {
+
+    /**
+     * Performs this operation on the given arguments.
+     *
+     * @param t the first input argument
+     * @param u the second input argument
+     * @param v the third input argument
+     *
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     * @throws E4 An exception of type {@code E4}
+     */
     void accept(T t, U u, V v) throws E1, E2, E3, E4;
+
+    /**
+     * Returns a composed {@code TriConsumer4E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code TriConsumer4E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default TriConsumer4E<T, U, V, E1, E2, E3, E4> andThen(final TriConsumer4E<? super T, ? super U,  ? super V, ? extends E1, ? extends E2, ? extends E3, ? extends E4> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r, v) -> {
+            accept(l, r, v);
+            after.accept(l, r, v);
+        };
+    }
+
+    /**
+     * Returns a composed {@code TriConsumer4E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code TriConsumer4E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default TriConsumer4E<T, U, V, E1, E2, E3, E4> andThen(final TriConsumer3E<? super T, ? super U,  ? super V, ? extends E1, ? extends E2, ? extends E3> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r, v) -> {
+            accept(l, r, v);
+            after.accept(l, r, v);
+        };
+    }
+
+    /**
+     * Returns a composed {@code TriConsumer4E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code TriConsumer4E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default TriConsumer4E<T, U, V, E1, E2, E3, E4> andThen(final TriConsumer2E<? super T, ? super U,  ? super V, ? extends E1, ? extends E2> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r, v) -> {
+            accept(l, r, v);
+            after.accept(l, r, v);
+        };
+    }
+
+    /**
+     * Returns a composed {@code TriConsumer4E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code TriConsumer4E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default TriConsumer4E<T, U, V, E1, E2, E3, E4> andThen(final TriConsumerE<? super T, ? super U,  ? super V, ? extends E1> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r, v) -> {
+            accept(l, r, v);
+            after.accept(l, r, v);
+        };
+    }
+
+    /**
+     * Returns a composed {@code TriConsumer4E} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation.  If performing this operation throws an exception,
+     * the {@code after} operation will not be performed.
+     *
+     * @param after the operation to perform after this operation
+     * @return a composed {@code TriConsumer4E} that performs in sequence this
+     * operation followed by the {@code after} operation
+     * @throws NullPointerException if {@code after} is null
+     */
+    default TriConsumer4E<T, U, V, E1, E2, E3, E4> andThen(final TriConsumer<? super T, ? super U,  ? super V> after) {
+        Objects.requireNonNull(after);
+
+        return (l, r, v) -> {
+            accept(l, r, v);
+            after.accept(l, r, v);
+        };
+    }
 }

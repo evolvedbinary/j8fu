@@ -26,6 +26,9 @@
  */
 package com.evolvedbinary.j8fu.function;
 
+import java.util.Objects;
+import java.util.function.Function;
+
 /**
  * Similar to {@link BiFunctionE} but
  * permits seven statically known Exceptions to be thrown
@@ -46,5 +49,173 @@ package com.evolvedbinary.j8fu.function;
 @FunctionalInterface
 public interface BiFunction7E<T, U, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable,
         E4 extends Throwable, E5 extends Throwable, E6 extends Throwable, E7 extends Throwable> {
+
+    /**
+     * Applies this function to the given arguments.
+     *
+     * @param t the first function argument
+     * @param u the second function argument
+     * @return the function result
+     *
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     * @throws E4 An exception of type {@code E4}
+     * @throws E5 An exception of type {@code E5}
+     * @throws E6 An exception of type {@code E6}
+     * @throws E7 An exception of type {@code E7}
+     */
     R apply(final T t, final U u) throws E1, E2, E3, E4, E5, E6, E7;
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     *
+     * @throws NullPointerException if after is null
+     */
+    default <V> BiFunction7E<T, U, V, E1, E2, E3, E4, E5, E6, E7> andThen(final Function7E<? super R, ? extends V, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5, ? extends E6, ? extends E7> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u) -> after.apply(apply(t, u));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     *
+     * @throws NullPointerException if after is null
+     */
+    default <V> BiFunction7E<T, U, V, E1, E2, E3, E4, E5, E6, E7> andThen(final Function6E<? super R, ? extends V, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5, ? extends E6> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u) -> after.apply(apply(t, u));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     *
+     * @throws NullPointerException if after is null
+     */
+    default <V> BiFunction7E<T, U, V, E1, E2, E3, E4, E5, E6, E7> andThen(final Function5E<? super R, ? extends V, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u) -> after.apply(apply(t, u));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     *
+     * @throws NullPointerException if after is null
+     */
+    default <V> BiFunction7E<T, U, V, E1, E2, E3, E4, E5, E6, E7> andThen(final Function4E<? super R, ? extends V, ? extends E1, ? extends E2, ? extends E3, ? extends E4> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u) -> after.apply(apply(t, u));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     *
+     * @throws NullPointerException if after is null
+     */
+    default <V> BiFunction7E<T, U, V, E1, E2, E3, E4, E5, E6, E7> andThen(final Function3E<? super R, ? extends V, ? extends E1, ? extends E2, ? extends E3> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u) -> after.apply(apply(t, u));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     *
+     * @throws NullPointerException if after is null
+     */
+    default <V> BiFunction7E<T, U, V, E1, E2, E3, E4, E5, E6, E7> andThen(final Function2E<? super R, ? extends V, ? extends E1, ? extends E2> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u) -> after.apply(apply(t, u));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     *
+     * @throws NullPointerException if after is null
+     */
+    default <V> BiFunction7E<T, U, V, E1, E2, E3, E4, E5, E6, E7> andThen(final FunctionE<? super R, ? extends V, ? extends E1> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u) -> after.apply(apply(t, u));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <V> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     *
+     * @throws NullPointerException if after is null
+     */
+    default <V> BiFunction7E<T, U, V, E1, E2, E3, E4, E5, E6, E7> andThen(final Function<? super R, ? extends V> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u) -> after.apply(apply(t, u));
+    }
 }
