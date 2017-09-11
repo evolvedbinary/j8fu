@@ -222,6 +222,7 @@ public interface FunctionE<T, R, E extends Throwable> {
      * Returns a function that always returns its input argument.
      *
      * @param <T> the type of the input and output objects to the function
+     * @param <E> Function throws exception type
      * @return a function that always returns its input argument
      */
     static <T, E extends Throwable> FunctionE<T, T, E> identity() {
