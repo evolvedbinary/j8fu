@@ -10,7 +10,7 @@
 
     <groupId>com.evolvedbinary.j8fu</groupId>
     <artifactId>j8fu</artifactId>
-    <version>1.9-SNAPSHOT</version>
+    <version>1.10-SNAPSHOT</version>
 
     <name>Java 8 Functional Utilities</name>
     <description>Functional Utilities for Java 8</description>
