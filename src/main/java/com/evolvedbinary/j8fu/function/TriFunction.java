@@ -59,14 +59,14 @@ public interface TriFunction<T, U, V, R> {
      * If evaluation of either function throws an exception, it is relayed to
      * the caller of the composed function.
      *
-     * @param <W> the type of output of the {@code after} function, and of the
+     * @param <R2> the type of output of the {@code after} function, and of the
      *           composed function
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
      * applies the {@code after} function
      * @throws NullPointerException if after is null
      */
-    default <W> TriFunction<T, U, V, W> andThen(final Function<? super R, ? extends W> after) {
+    default <R2> TriFunction<T, U, V, R2> andThen(final Function<? super R, ? extends R2> after) {
         Objects.requireNonNull(after);
         return (T t, U u, V v) -> after.apply(apply(t, u, v));
     }

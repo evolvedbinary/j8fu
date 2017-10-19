@@ -62,14 +62,14 @@ public interface TriFunctionE<T, U, V, R, E extends Throwable> {
      * If evaluation of either function throws an exception, it is relayed to
      * the caller of the composed function.
      *
-     * @param <W> the type of output of the {@code after} function, and of the
+     * @param <R2> the type of output of the {@code after} function, and of the
      *           composed function
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
      * applies the {@code after} function
      * @throws NullPointerException if after is null
      */
-    default <W> TriFunctionE<T, U, V, W, E> andThen(final FunctionE<? super R, ? extends W, ? extends E> after) {
+    default <R2> TriFunctionE<T, U, V, R2, E> andThen(final FunctionE<? super R, ? extends R2, ? extends E> after) {
         Objects.requireNonNull(after);
         return (T t, U u, V v) -> after.apply(apply(t, u, v));
     }
@@ -80,14 +80,14 @@ public interface TriFunctionE<T, U, V, R, E extends Throwable> {
      * If evaluation of either function throws an exception, it is relayed to
      * the caller of the composed function.
      *
-     * @param <W> the type of output of the {@code after} function, and of the
+     * @param <R2> the type of output of the {@code after} function, and of the
      *           composed function
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
      * applies the {@code after} function
      * @throws NullPointerException if after is null
      */
-    default <W> TriFunctionE<T, U, V, W, E> andThen(final Function<? super R, ? extends W> after) {
+    default <R2> TriFunctionE<T, U, V, R2, E> andThen(final Function<? super R, ? extends R2> after) {
         Objects.requireNonNull(after);
         return (T t, U u, V v) -> after.apply(apply(t, u, v));
     }

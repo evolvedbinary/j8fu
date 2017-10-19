@@ -30,35 +30,46 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * Similar to {@link BiFunctionE} but
- * permits four statically known Exceptions to be thrown
+ * Similar to {@link QuadFunctionE} but
+ * permits seven statically known Exceptions to be thrown
  *
  * @param <T> Function parameter 1 type
  * @param <U> Function parameter 2 type
+ * @param <V> Function parameter 3 type
+ * @param <W> Function parameter 4 type
  * @param <R> Function return type
  * @param <E1> Function throws exception type
  * @param <E2> Function throws exception type
  * @param <E3> Function throws exception type
  * @param <E4> Function throws exception type
+ * @param <E5> Function throws exception type
+ * @param <E6> Function throws exception type
+ * @param <E7> Function throws exception type
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
 @FunctionalInterface
-public interface BiFunction4E<T, U, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable> {
+public interface QuadFunction7E<T, U, V, W, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable,
+        E4 extends Throwable, E5 extends Throwable, E6 extends Throwable, E7 extends Throwable> {
 
     /**
      * Applies this function to the given arguments.
      *
      * @param t the first function argument
      * @param u the second function argument
+     * @param v the third function argument
+     * @param w the fourth function argument
      * @return the function result
      *
      * @throws E1 An exception of type {@code E1}
      * @throws E2 An exception of type {@code E2}
      * @throws E3 An exception of type {@code E3}
      * @throws E4 An exception of type {@code E4}
+     * @throws E5 An exception of type {@code E5}
+     * @throws E6 An exception of type {@code E6}
+     * @throws E7 An exception of type {@code E7}
      */
-    R apply(final T t, final U u) throws E1, E2, E3, E4;
+    R apply(final T t, final U u, final V v, final W w) throws E1, E2, E3, E4, E5, E6, E7;
 
     /**
      * Returns a composed function that first applies this function to
@@ -71,12 +82,11 @@ public interface BiFunction4E<T, U, R, E1 extends Throwable, E2 extends Throwabl
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
      * applies the {@code after} function
-     *
      * @throws NullPointerException if after is null
      */
-    default <R2> BiFunction4E<T, U, R2, E1, E2, E3, E4> andThen(final Function4E<? super R, ? extends R2, ? extends E1, ? extends E2, ? extends E3, ? extends E4> after) {
+    default <R2> QuadFunction7E<T, U, V, W, R2, E1, E2, E3, E4, E5, E6, E7> andThen(final Function7E<? super R, ? extends R2, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5, ? extends E6, ? extends E7> after) {
         Objects.requireNonNull(after);
-        return (T t, U u) -> after.apply(apply(t, u));
+        return (T t, U u, V v, W w) -> after.apply(apply(t, u, v, w));
     }
 
     /**
@@ -90,12 +100,11 @@ public interface BiFunction4E<T, U, R, E1 extends Throwable, E2 extends Throwabl
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
      * applies the {@code after} function
-     *
      * @throws NullPointerException if after is null
      */
-    default <R2> BiFunction4E<T, U, R2, E1, E2, E3, E4> andThen(final Function3E<? super R, ? extends R2, ? extends E1, ? extends E2, ? extends E3> after) {
+    default <R2> QuadFunction7E<T, U, V, W, R2, E1, E2, E3, E4, E5, E6, E7> andThen(final Function6E<? super R, ? extends R2, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5, ? extends E6> after) {
         Objects.requireNonNull(after);
-        return (T t, U u) -> after.apply(apply(t, u));
+        return (T t, U u, V v, W w) -> after.apply(apply(t, u, v, w));
     }
 
     /**
@@ -109,12 +118,11 @@ public interface BiFunction4E<T, U, R, E1 extends Throwable, E2 extends Throwabl
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
      * applies the {@code after} function
-     *
      * @throws NullPointerException if after is null
      */
-    default <R2> BiFunction4E<T, U, R2, E1, E2, E3, E4> andThen(final Function2E<? super R, ? extends R2, ? extends E1, ? extends E2> after) {
+    default <R2> QuadFunction7E<T, U, V, W, R2, E1, E2, E3, E4, E5, E6, E7> andThen(final Function5E<? super R, ? extends R2, ? extends E1, ? extends E2, ? extends E3, ? extends E4, ? extends E5> after) {
         Objects.requireNonNull(after);
-        return (T t, U u) -> after.apply(apply(t, u));
+        return (T t, U u, V v, W w) -> after.apply(apply(t, u, v, w));
     }
 
     /**
@@ -128,12 +136,11 @@ public interface BiFunction4E<T, U, R, E1 extends Throwable, E2 extends Throwabl
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
      * applies the {@code after} function
-     *
      * @throws NullPointerException if after is null
      */
-    default <R2> BiFunction4E<T, U, R2, E1, E2, E3, E4> andThen(final FunctionE<? super R, ? extends R2, ? extends E1> after) {
+    default <R2> QuadFunction7E<T, U, V, W, R2, E1, E2, E3, E4, E5, E6, E7> andThen(final Function4E<? super R, ? extends R2, ? extends E1, ? extends E2, ? extends E3, ? extends E4> after) {
         Objects.requireNonNull(after);
-        return (T t, U u) -> after.apply(apply(t, u));
+        return (T t, U u, V v, W w) -> after.apply(apply(t, u, v, w));
     }
 
     /**
@@ -147,11 +154,64 @@ public interface BiFunction4E<T, U, R, E1 extends Throwable, E2 extends Throwabl
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
      * applies the {@code after} function
-     *
      * @throws NullPointerException if after is null
      */
-    default <R2> BiFunction4E<T, U, R2, E1, E2, E3, E4> andThen(final Function<? super R, ? extends R2> after) {
+    default <R2> QuadFunction7E<T, U, V, W, R2, E1, E2, E3, E4, E5, E6, E7> andThen(final Function3E<? super R, ? extends R2, ? extends E1, ? extends E2, ? extends E3> after) {
         Objects.requireNonNull(after);
-        return (T t, U u) -> after.apply(apply(t, u));
+        return (T t, U u, V v, W w) -> after.apply(apply(t, u, v, w));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <R2> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     */
+    default <R2> QuadFunction7E<T, U, V, W, R2, E1, E2, E3, E4, E5, E6, E7> andThen(final Function2E<? super R, ? extends R2, ? extends E1, ? extends E2> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u, V v, W w) -> after.apply(apply(t, u, v, w));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <R2> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     */
+    default <R2> QuadFunction7E<T, U, V, W, R2, E1, E2, E3, E4, E5, E6, E7> andThen(final FunctionE<? super R, ? extends R2, ? extends E1> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u, V v, W w) -> after.apply(apply(t, u, v, w));
+    }
+
+    /**
+     * Returns a composed function that first applies this function to
+     * its input, and then applies the {@code after} function to the result.
+     * If evaluation of either function throws an exception, it is relayed to
+     * the caller of the composed function.
+     *
+     * @param <R2> the type of output of the {@code after} function, and of the
+     *           composed function
+     * @param after the function to apply after this function is applied
+     * @return a composed function that first applies this function and then
+     * applies the {@code after} function
+     * @throws NullPointerException if after is null
+     */
+    default <R2> QuadFunction7E<T, U, V, W, R2, E1, E2, E3, E4, E5, E6, E7> andThen(final Function<? super R, ? extends R2> after) {
+        Objects.requireNonNull(after);
+        return (T t, U u, V v, W w) -> after.apply(apply(t, u, v, w));
     }
 }

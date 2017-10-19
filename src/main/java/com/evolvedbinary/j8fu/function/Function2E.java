@@ -247,7 +247,7 @@ public interface Function2E<T, R, E1 extends Throwable, E2 extends Throwable> {
      * If evaluation of either function throws an exception, it is relayed to
      * the caller of the composed function.
      *
-     * @param <V> the type of output of the {@code after} function, and of the
+     * @param <R2> the type of output of the {@code after} function, and of the
      *           composed function
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
@@ -256,7 +256,7 @@ public interface Function2E<T, R, E1 extends Throwable, E2 extends Throwable> {
      *
      * @see #compose(Function2E)
      */
-    default <V> Function2E<T, V, E1, E2> andThen(final Function2E<? super R, ? extends V, ? extends E1, ? extends E2> after) {
+    default <R2> Function2E<T, R2, E1, E2> andThen(final Function2E<? super R, ? extends R2, ? extends E1, ? extends E2> after) {
         Objects.requireNonNull(after);
         return (T t) -> after.apply(apply(t));
     }
@@ -267,7 +267,7 @@ public interface Function2E<T, R, E1 extends Throwable, E2 extends Throwable> {
      * If evaluation of either function throws an exception, it is relayed to
      * the caller of the composed function.
      *
-     * @param <V> the type of output of the {@code after} function, and of the
+     * @param <R2> the type of output of the {@code after} function, and of the
      *           composed function
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
@@ -276,7 +276,7 @@ public interface Function2E<T, R, E1 extends Throwable, E2 extends Throwable> {
      *
      * @see #compose(FunctionE)
      */
-    default <V> Function2E<T, V, E1, E2> andThen(final FunctionE<? super R, ? extends V, ? extends E1> after) {
+    default <R2> Function2E<T, R2, E1, E2> andThen(final FunctionE<? super R, ? extends R2, ? extends E1> after) {
         Objects.requireNonNull(after);
         return (T t) -> after.apply(apply(t));
     }
@@ -287,7 +287,7 @@ public interface Function2E<T, R, E1 extends Throwable, E2 extends Throwable> {
      * If evaluation of either function throws an exception, it is relayed to
      * the caller of the composed function.
      *
-     * @param <V> the type of output of the {@code after} function, and of the
+     * @param <R2> the type of output of the {@code after} function, and of the
      *           composed function
      * @param after the function to apply after this function is applied
      * @return a composed function that first applies this function and then
@@ -296,7 +296,7 @@ public interface Function2E<T, R, E1 extends Throwable, E2 extends Throwable> {
      *
      * @see #compose(Function)
      */
-    default <V> Function2E<T, V, E1, E2> andThen(final Function<? super R, ? extends V> after) {
+    default <R2> Function2E<T, R2, E1, E2> andThen(final Function<? super R, ? extends R2> after) {
         Objects.requireNonNull(after);
         return (T t) -> after.apply(apply(t));
     }
