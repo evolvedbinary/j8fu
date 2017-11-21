@@ -29,15 +29,13 @@ package com.evolvedbinary.j8fu;
 import org.junit.Test;
 
 import java.util.Optional;
-import java.util.function.Function;
 
 import static com.evolvedbinary.j8fu.Either.Left;
 import static com.evolvedbinary.j8fu.Either.Right;
+import static com.evolvedbinary.j8fu.Either.valueOrThrow;
 import static java.util.function.Function.identity;
 import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 public class EitherTest {
@@ -171,6 +169,36 @@ public class EitherTest {
 
         final Either<Integer, String> either7 = Left(789);
         assertEquals("789", either7.valueOr(left -> left.toString()));
+    }
+
+    @Test
+    public void valueOrThrow_instance() throws IllegalStateException {
+        final Either<IllegalStateException, String> either1 = Right("hello");
+        assertEquals("hello", either1.valueOrThrow(identity()));
+
+        final IllegalStateException t = new IllegalStateException("some exception");
+        final Either<IllegalStateException, String> either2 = Left(t);
+        try {
+            either2.valueOrThrow(identity());
+            fail("Expected IllegalStateException");
+        } catch (final IllegalStateException e) {
+            assertEquals(t, e);
+        }
+    }
+
+    @Test
+    public void valueOrThrow_static() throws IllegalStateException {
+        final Either<IllegalStateException, String> either1 = Right("hello");
+        assertEquals("hello", valueOrThrow(either1));
+
+        final IllegalStateException t = new IllegalStateException("some exception");
+        final Either<IllegalStateException, String> either2 = Left(t);
+        try {
+            valueOrThrow(either2);
+            fail("Expected IllegalStateException");
+        } catch (final IllegalStateException e) {
+            assertEquals(t, e);
+        }
     }
 
     @Test

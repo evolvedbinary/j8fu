@@ -26,6 +26,8 @@
  */
 package com.evolvedbinary.j8fu;
 
+import com.evolvedbinary.j8fu.function.ConsumerE;
+
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Function;
@@ -211,6 +213,28 @@ public abstract class Either<L, R> {
     }
 
     /**
+     * Return the value from the right-hand-side of this disjunction or
+     * run the function on the left-hand-side to generate an exception
+     * which will be thrown.
+     *
+     * This function is designed for integration with legacy Java code which throws
+     * exceptions.
+     *
+     * @param <LT> The type of the exception
+     * @param lf A function that may be applied to the left-hand-side to generate an exception
+     *
+     * @return The value from the right
+     * @throws LT if a left value is present
+     */
+    public final <LT extends Throwable> R valueOrThrow(final Function<L, LT> lf) throws LT {
+        if(isLeft()) {
+            throw lf.apply(((Left<L, R>)this).value);
+        } else {
+            return ((Right<L, R>)this).value;
+        }
+    }
+
+    /**
      * Flip the left/right values in this disjunction.
      *
      * @return An Either with the left and right swapped
@@ -228,6 +252,29 @@ public abstract class Either<L, R> {
      */
     public Optional<R> toOptional() {
         return fold(l -> Optional.empty(), Optional::of);
+    }
+
+    /**
+     * Return the value from the right-hand-side of the disjunction or
+     * throw an exception of the left-hand-side.
+     *
+     * This function is designed for integration with legacy Java code which throws
+     * exceptions.
+     *
+     * @param <L> the throwable type of the Left of the disjunction
+     * @param <R> the type of the Right of the disjunction
+     * @param either a disjunction
+     *
+     * @return The value from the right
+     *
+     * @throws L if a left value is present
+     */
+    public static <L extends Throwable, R> R valueOrThrow(final Either<L, R> either) throws L {
+        if(either.isLeft()) {
+            throw ((Left<L, R>)either).value;
+        } else {
+            return ((Right<L, R>)either).value;
+        }
     }
 
     /**
