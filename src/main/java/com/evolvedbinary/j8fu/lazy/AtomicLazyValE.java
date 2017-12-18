@@ -69,4 +69,13 @@ public class AtomicLazyValE<T, E extends Throwable> {
     public T get() throws E {
         return valueOrThrow(val.updateAndGet(prev -> prev != null ? prev : initializer.get()));
     }
+
+    /**
+     * Returns true if the lazy value has been initialized.
+     *
+     * @return true if the lazy value has been initialized.
+     */
+    public boolean isInitialized() {
+        return val.get() != null;
+    }
 }

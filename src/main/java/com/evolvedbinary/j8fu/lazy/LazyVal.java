@@ -62,4 +62,13 @@ public class LazyVal<T> {
         }
         return val;
     }
+
+    /**
+     * Returns true if the lazy value has been initialized.
+     *
+     * @return true if the lazy value has been initialized.
+     */
+    public boolean isInitialized() {
+        return val != null;
+    }
 }

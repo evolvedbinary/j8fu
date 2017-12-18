@@ -60,4 +60,13 @@ public class AtomicLazyVal<T> {
     public T get() {
         return val.updateAndGet(prev -> prev != null ? prev : initializer.get());
     }
+
+    /**
+     * Returns true if the lazy value has been initialized.
+     *
+     * @return true if the lazy value has been initialized.
+     */
+    public boolean isInitialized() {
+        return val.get() != null;
+    }
 }
