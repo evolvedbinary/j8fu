@@ -28,6 +28,7 @@ package com.evolvedbinary.j8fu.tuple;
 
 import java.beans.ConstructorProperties;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * A tuple of three values
@@ -146,6 +147,34 @@ public class Tuple3<T1, T2, T3> implements Tuple {
     @Override
     public <T> T foldRight(final T startValue, final BiFunction<T, Object, T> op) {
         return op.apply(op.apply(op.apply(startValue, _3), _2), _1);
+    }
+
+    /**
+     * Applies the function to the tuple and returns the result.
+     *
+     * @param f the folding function
+     *
+     * @return the result
+     *
+     * @param <T> the type of the result
+     */
+    public <T> T fold(final Function<Tuple3<T1, T2, T3>, T> f) {
+        return f.apply(this);
+    }
+
+    /**
+     * Takes a function which maps the values of the tuple.
+     *
+     * @param f the mapping function
+     *
+     * @return the resultant tuple
+     *
+     * @param <U1> The mapped type of the first value
+     * @param <U2> The mapped type of the second value
+     * @param <U3> the mapped type of the third value
+     */
+    public <U1, U2, U3> Tuple3<U1, U2, U3> flatMap(final Function<Tuple3<T1, T2, T3>, Tuple3<U1, U2, U3>> f) {
+        return f.apply(this);
     }
 
     @Override

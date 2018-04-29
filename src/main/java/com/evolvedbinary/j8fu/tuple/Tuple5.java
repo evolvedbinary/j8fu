@@ -28,6 +28,7 @@ package com.evolvedbinary.j8fu.tuple;
 
 import java.beans.ConstructorProperties;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * A tuple of five values
@@ -186,6 +187,36 @@ public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
     @Override
     public <T> T foldRight(final T startValue, final BiFunction<T, Object, T> op) {
         return op.apply(op.apply(op.apply(op.apply(op.apply(startValue, _5), _4), _3), _2), _1);
+    }
+
+    /**
+     * Applies the function to the tuple and returns the result.
+     *
+     * @param f the folding function
+     *
+     * @return the result
+     *
+     * @param <T> the type of the result
+     */
+    public <T> T fold(final Function<Tuple5<T1, T2, T3, T4, T5>, T> f) {
+        return f.apply(this);
+    }
+
+    /**
+     * Takes a function which maps the values of the tuple.
+     *
+     * @param f the mapping function
+     *
+     * @return the resultant tuple
+     *
+     * @param <U1> The mapped type of the first value
+     * @param <U2> The mapped type of the second value
+     * @param <U3> the mapped type of the third value
+     * @param <U4> the mapped type of the fourth value
+     * @param <U5> the mapped type of the fifth value
+     */
+    public <U1, U2, U3, U4, U5> Tuple5<U1, U2, U3, U4, U5> flatMap(final Function<Tuple5<T1, T2, T3, T4, T5>, Tuple5<U1, U2, U3, U4, U5>> f) {
+        return f.apply(this);
     }
 
     @Override
