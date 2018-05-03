@@ -127,4 +127,99 @@ public interface Tuple {
      * @param <TN> The type of the last value
      */
     <TN> Tuple before(final TN last);
+
+    /**
+     * Constructs a new tuple containing two values.
+     *
+     * @param t1 The first value
+     * @param t2 The second value
+     *
+     * @param <T1> The type of the first value
+     * @param <T2> The type of the second value
+     *
+     * @return A tuple of two values
+     */
+    static <T1, T2> Tuple2<T1, T2> Tuple(final T1 t1, final T2 t2) {
+        return new Tuple2(t1, t2);
+    }
+
+    /**
+     * Constructs a new tuple containing three values.
+     *
+     * @param t1 The first value
+     * @param t2 The second value
+     * @param t3 The third value
+     *
+     * @param <T1> The type of the first value
+     * @param <T2> The type of the second value
+     * @param <T3> The type of the third value
+     *
+     * @return A tuple of three values
+     */
+    static <T1, T2, T3> Tuple3<T1, T2, T3> Tuple(final T1 t1, final T2 t2, final T3 t3) {
+        return new Tuple3(t1, t2, t3);
+    }
+
+    /**
+     * Constructs a new tuple containing four values.
+     *
+     * @param t1 The first value
+     * @param t2 The second value
+     * @param t3 The third value
+     * @param t4 The fourth value
+     *
+     * @param <T1> The type of the first value
+     * @param <T2> The type of the second value
+     * @param <T3> The type of the third value
+     * @param <T4> The type of the fourth value
+     *
+     * @return A tuple of four values
+     */
+    static <T1, T2, T3, T4> Tuple4<T1, T2, T3, T4> Tuple(final T1 t1, final T2 t2, final T3 t3, final T4 t4) {
+        return new Tuple4(t1, t2, t3, t4);
+    }
+
+    /**
+     * Constructs a new tuple containing five values.
+     *
+     * @param t1 The first value
+     * @param t2 The second value
+     * @param t3 The third value
+     * @param t4 The fourth value
+     * @param t5 The fifth value
+     *
+     * @param <T1> The type of the first value
+     * @param <T2> The type of the second value
+     * @param <T3> The type of the third value
+     * @param <T4> The type of the fourth value
+     * @param <T5> The type of the fifth value
+     *
+     * @return A tuple of five values
+     */
+    static <T1, T2, T3, T4, T5> Tuple5<T1, T2, T3, T4, T5> Tuple(final T1 t1, final T2 t2, final T3 t3, final T4 t4, final T5 t5) {
+        return new Tuple5(t1, t2, t3, t4, t5);
+    }
+
+    /**
+     * Constructs a new tuple containing six values.
+     *
+     * @param t1 The first value
+     * @param t2 The second value
+     * @param t3 The third value
+     * @param t4 The fourth value
+     * @param t5 The fifth value
+     * @param t6 The sixth value
+     *
+     * @param <T1> The type of the first value
+     * @param <T2> The type of the second value
+     * @param <T3> The type of the third value
+     * @param <T4> The type of the fourth value
+     * @param <T5> The type of the fifth value
+     * @param <T6> The type of the sixth value
+     *
+     * @return A tuple of six values
+     */
+    static <T1, T2, T3, T4, T5, T6> Tuple6<T1, T2, T3, T4, T5, T6> Tuple(final T1 t1, final T2 t2, final T3 t3, final T4 t4, final T5 t5, final T6 t6) {
+        return new Tuple6(t1, t2, t3, t4, t5, t6);
+    }
 }
