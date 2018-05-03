@@ -245,4 +245,9 @@ public class Tuple6<T1, T2, T3, T4, T5, T6> implements Tuple {
     public <T5> Tuple before(final T5 _5) {
         throw new UnsupportedOperationException("Tuples greater than size 6 are not yet supported");
     }
+
+    @Override
+    public String toString() {
+        return "Tuple6(" + _1 + ", " + _2 + ", " + _3 + ", " + _4 + ", " + _5 + ", " + _6 + ")";
+    }
 }

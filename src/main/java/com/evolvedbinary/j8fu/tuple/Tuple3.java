@@ -186,4 +186,9 @@ public class Tuple3<T1, T2, T3> implements Tuple {
     public <T4> Tuple4<T1, T2, T3, T4> before(final T4 _4) {
         return new Tuple4<>(this, _4);
     }
+
+    @Override
+    public String toString() {
+        return "Tuple3(" + _1 + ", " + _2 + ", " + _3 + ")";
+    }
 }

@@ -214,4 +214,9 @@ public class Tuple4<T1, T2, T3, T4> implements Tuple {
     public <T5> Tuple before(final T5 _5) {
         return new Tuple5<>(this, _5);
     }
+
+    @Override
+    public String toString() {
+        return "Tuple4(" + _1 + ", " + _2 + ", " + _3 + ", " + _4 + ")";
+    }
 }
