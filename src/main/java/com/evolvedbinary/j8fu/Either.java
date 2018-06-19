@@ -27,6 +27,7 @@
 package com.evolvedbinary.j8fu;
 
 import com.evolvedbinary.j8fu.function.ConsumerE;
+import com.evolvedbinary.j8fu.function.FunctionE;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -132,6 +133,29 @@ public abstract class Either<L, R> {
      * @param <T> The return type of the fold function
      */
     public final <T> T fold(final Function<L, T> lf, final Function<R, T> rf) {
+        if(isLeft) {
+            return lf.apply(((Left<L, R>)this).value);
+        } else {
+            return rf.apply(((Right<L, R>)this).value);
+        }
+    }
+
+    /**
+     * Catamorphism. Run the first given function if left,
+     * otherwise the second given function
+     *
+     * @param <T> The result type from performing the fold
+     * @param lf A function that may be applied to the left-hand-side
+     * @param rf A function that may be applied to the right-hand-side
+     *
+     * @return The result of evaluating the lf or rf
+     *
+     * @param <T> The return type of the fold function
+     * @param <LE> The exception type of the left-hand-side function.
+     * @param <RE> The exception type of the right-hand-side function.
+     */
+    public final <T, LE extends Exception, RE extends Exception> T foldE(
+            final FunctionE<L, T, LE> lf, final FunctionE<R, T, RE> rf) throws LE, RE {
         if(isLeft) {
             return lf.apply(((Left<L, R>)this).value);
         } else {
