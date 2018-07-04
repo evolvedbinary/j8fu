@@ -27,6 +27,7 @@
 package com.evolvedbinary.j8fu.tuple;
 
 import java.beans.ConstructorProperties;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -129,6 +130,11 @@ public class Tuple4<T1, T2, T3, T4> implements Tuple {
                     && isEqual(_4, other._4);
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_1, _2, _3, _4);
     }
 
     @Override

@@ -27,6 +27,7 @@
 package com.evolvedbinary.j8fu.tuple;
 
 import java.beans.ConstructorProperties;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -94,6 +95,11 @@ public class Tuple3<T1, T2, T3> implements Tuple {
      */
     public T3 get_3() {
         return _3;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_1, _2, _3);
     }
 
     @Override

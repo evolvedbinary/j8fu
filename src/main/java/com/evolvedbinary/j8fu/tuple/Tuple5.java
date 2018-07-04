@@ -27,6 +27,7 @@
 package com.evolvedbinary.j8fu.tuple;
 
 import java.beans.ConstructorProperties;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -127,6 +128,11 @@ public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
      */
     public T5 get_5() {
         return _5;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_1, _2, _3, _4, _5);
     }
 
     @Override
