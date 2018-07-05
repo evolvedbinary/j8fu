@@ -228,6 +228,7 @@ public abstract class Either<L, R> {
      *
      * @return The value from the right, or a calculated value from the left
      */
+    @SuppressWarnings("unchecked")
     public final <RR extends R> RR valueOr(final Function<L, RR> lf) {
         if(isLeft()) {
             return lf.apply(((Left<L, R>)this).value);
