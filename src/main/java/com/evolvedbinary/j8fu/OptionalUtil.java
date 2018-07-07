@@ -184,11 +184,7 @@ public class OptionalUtil {
      * @return The disjunction.
      */
     private static <L, R> Either<L,R> toLeft(final Optional<L> left, final R right) {
-        if (left.isPresent()) {
-            return Left(left.get());
-        } else {
-            return Right(right);
-        }
+        return left.map(Either::<L, R>Left).orElseGet(() -> Right(right));
     }
 
 
@@ -201,11 +197,7 @@ public class OptionalUtil {
      * @return The disjunction.
      */
     private static <L, R> Either<L,R> toLeft(final Optional<L> left, final Supplier<R> right) {
-        if (left.isPresent()) {
-            return Left(left.get());
-        } else {
-            return Right(right.get());
-        }
+        return left.map(Either::<L, R>Left).orElseGet(() -> Right(right.get()));
     }
 
     /**
@@ -218,11 +210,7 @@ public class OptionalUtil {
      * @return The disjunction.
      */
     private static <L, R> Either<L,R> toRight(final L left, final Optional<R> right) {
-        if (!right.isPresent()) {
-            return Left(left);
-        } else {
-            return Right(right.get());
-        }
+        return right.map(Either::<L, R>Right).orElseGet(() -> Left(left));
     }
 
     /**
@@ -234,11 +222,7 @@ public class OptionalUtil {
      * @return The disjunction.
      */
     private static <L, R> Either<L,R> toRight(final Supplier<L> left, final Optional<R> right) {
-        if (!right.isPresent()) {
-            return Left(left.get());
-        } else {
-            return Right(right.get());
-        }
+        return right.map(Either::<L, R>Right).orElseGet(() -> Left(left.get()));
     }
 
     /**
