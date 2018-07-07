@@ -263,6 +263,8 @@ public class OptionalUtil {
      * @param optional The optional to construct the list from.
      *
      * @return the list.
+     *
+     * @param <T> The type of the value contained in the Optional.
      */
     public static <T> List<T> toList(final Optional<T> optional) {
         return optional.map(value -> {
@@ -280,6 +282,8 @@ public class OptionalUtil {
      * @param optional The optional to construct the list from.
      *
      * @return the list.
+     *
+     * @param <T> The type of the value contained in the Optional.
      */
     public static <T> List<T> toImmutableList(final Optional<T> optional) {
         return optional.map(Arrays::asList)

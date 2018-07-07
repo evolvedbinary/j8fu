@@ -153,6 +153,9 @@ public abstract class Either<L, R> {
      * @param <T> The return type of the fold function
      * @param <LE> The exception type of the left-hand-side function.
      * @param <RE> The exception type of the right-hand-side function.
+     *
+     * @throws LE The exception from the left-hand-side function.
+     * @throws RE The exception from the right-hand-side function.
      */
     public final <T, LE extends Exception, RE extends Exception> T foldE(
             final FunctionE<L, T, LE> lf, final FunctionE<R, T, RE> rf) throws LE, RE {
