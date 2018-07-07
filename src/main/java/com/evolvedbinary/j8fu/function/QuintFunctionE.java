@@ -26,8 +26,13 @@
  */
 package com.evolvedbinary.j8fu.function;
 
+import com.evolvedbinary.j8fu.Either;
+
 import java.util.Objects;
 import java.util.function.Function;
+
+import static com.evolvedbinary.j8fu.Either.Left;
+import static com.evolvedbinary.j8fu.Either.Right;
 
 /**
  * Similar to {@link java.util.function.BiFunction} but
@@ -94,5 +99,22 @@ public interface QuintFunctionE<T, U, V, W, X, R, E extends Throwable> {
     default <R2> QuintFunctionE<T, U, V, W, X, R2, E> andThen(final Function<? super R, ? extends R2> after) {
         Objects.requireNonNull(after);
         return (T t, U u, V v, W w, X x) -> after.apply(apply(t, u, v, w, x));
+    }
+
+    /**
+     * Returns a quint-function that applies this quint-function and returns the
+     * result as an {@link Either}.
+     *
+     * @return a quint-function which will return either the exception {@code E} or the result {@code R}.
+     */
+    @SuppressWarnings("unchecked")
+    default QuintFunction<T, U, V, W, X, Either<E, R>> toQuintFunction() {
+        return (T t, U u, V v, W w, X x) -> {
+            try {
+                return Right(apply(t, u, v, w, x));
+            } catch (final Throwable e) {
+                return Left((E)e);
+            }
+        };
     }
 }

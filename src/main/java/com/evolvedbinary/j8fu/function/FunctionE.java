@@ -26,9 +26,14 @@
  */
 package com.evolvedbinary.j8fu.function;
 
+import com.evolvedbinary.j8fu.Either;
+
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+
+import static com.evolvedbinary.j8fu.Either.Left;
+import static com.evolvedbinary.j8fu.Either.Right;
 
 /**
  * Similar to {@link java.util.function.Function} but
@@ -216,6 +221,23 @@ public interface FunctionE<T, R, E extends Throwable> {
     default <R2> FunctionE<T, R2, E> andThen(final Function<? super R, ? extends R2> after) {
         Objects.requireNonNull(after);
         return (T t) -> after.apply(apply(t));
+    }
+
+    /**
+     * Returns a function that applies this function and returns the
+     * result as an {@link Either}.
+     *
+     * @return a function which will return either the exception {@code E} or the result {@code R}.
+     */
+    @SuppressWarnings("unchecked")
+    default Function<T, Either<E, R>> toFunction() {
+        return (T t) -> {
+            try {
+                return Right(apply(t));
+            } catch (final Throwable e) {
+                return Left((E)e);
+            }
+        };
     }
 
     /**

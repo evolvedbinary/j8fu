@@ -26,8 +26,13 @@
  */
 package com.evolvedbinary.j8fu.function;
 
+import com.evolvedbinary.j8fu.Either;
+
 import java.util.Objects;
 import java.util.function.Function;
+
+import static com.evolvedbinary.j8fu.Either.Left;
+import static com.evolvedbinary.j8fu.Either.Right;
 
 /**
  * Similar to {@link TriFunctionE} but
@@ -191,5 +196,21 @@ public interface TriFunction6E<T, U, V, R, E1 extends Throwable, E2 extends Thro
     default <R2> TriFunction6E<T, U, V, R2, E1, E2, E3, E4, E5, E6> andThen(final Function<? super R, ? extends R2> after) {
         Objects.requireNonNull(after);
         return (T t, U u, V v) -> after.apply(apply(t, u, v));
+    }
+
+    /**
+     * Returns a tri-function that applies this tri-function and returns the
+     * result as an {@link Either}.
+     *
+     * @return a tri-function which will return either a throwable or the result {@code R}.
+     */
+    default TriFunction<T, U, V, Either<Throwable, R>> toTriFunction() {
+        return (T t, U u, V v) -> {
+            try {
+                return Right(apply(t, u, v));
+            } catch (final Throwable e) {
+                return Left(e);
+            }
+        };
     }
 }
