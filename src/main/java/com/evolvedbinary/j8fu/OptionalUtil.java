@@ -176,6 +176,36 @@ public class OptionalUtil {
 
     /**
      * If the optional is present, then its value is returned as the
+     * right of a disjunction, otherwise the left of the disjunction is
+     * returned with the value {@code null}.
+     *
+     * This is basically the same as calling {@link #toRight(Object, Optional)}
+     * with {@code null} as the left argument.
+     *
+     * @param optional the optional to create an Either from.
+     * @return The disjunction.
+     */
+    private static <L, R> Either<L,R> toEither(final Optional<R> optional) {
+        return toRight(null, optional);
+    }
+
+    /**
+     * If the optional is present, then its value is returned as the
+     * right of a disjunction, otherwise the left of the disjunction is
+     * returned with the value {@code Optional.empty()}.
+     *
+     * This is basically the same as calling {@link #toRight(Object, Optional)}
+     * with {@code Optional.empty()} as the left argument.
+     *
+     * @param optional the optional to create an Either from.
+     * @return The disjunction.
+     */
+    private static <L, R> Either<Optional<L>, R> toEitherOpt(final Optional<R> optional) {
+        return optional.map(Either::<Optional<L>, R>Right).orElseGet(() -> Left(Optional.empty()));
+    }
+
+    /**
+     * If the optional is present, then its value is returned as the
      * Left of a disjunction, otherwise the right value is returned.
      *
      * @param left The optional which could form the left
