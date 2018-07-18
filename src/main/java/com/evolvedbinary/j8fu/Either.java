@@ -26,8 +26,8 @@
  */
 package com.evolvedbinary.j8fu;
 
-import com.evolvedbinary.j8fu.function.ConsumerE;
 import com.evolvedbinary.j8fu.function.FunctionE;
+import com.evolvedbinary.j8fu.function.SupplierE;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -280,6 +280,26 @@ public abstract class Either<L, R> {
      */
     public Optional<R> toOptional() {
         return fold(l -> Optional.empty(), Optional::of);
+    }
+
+    /**
+     * Executes the attempt inside a try/catch and returns a
+     * disjunction representing the result.
+     *
+     * This function is designed for integration with legacy Java code which throws
+     * exceptions.
+     *
+     * @param <R> the type of the Right of the disjunction
+     * @param attempt the code to attempt to execute.
+     *
+     * @return Left if an exception occurs, otherwise Right.
+     */
+    public static <R> Either<Throwable, R> tryCatch(final SupplierE<R, Throwable> attempt) {
+        try {
+            return Right(attempt.get());
+        } catch (final Throwable e) {
+            return Left(e);
+        }
     }
 
     /**
