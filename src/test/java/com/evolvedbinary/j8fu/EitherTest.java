@@ -26,9 +26,12 @@
  */
 package com.evolvedbinary.j8fu;
 
+import com.evolvedbinary.j8fu.function.FunctionE;
 import org.junit.Test;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static com.evolvedbinary.j8fu.Either.Left;
 import static com.evolvedbinary.j8fu.Either.Right;
@@ -41,13 +44,41 @@ import static org.junit.Assert.*;
 public class EitherTest {
 
     @Test
+    public void right() {
+        assertFalse(Right(1).isLeft());
+        assertTrue(Right(1).isRight());
+        assertEquals("Right(123)", Right(123).toString());
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void right_invalidProjection() {
+        Right(1).left().get();
+    }
+
+    @Test
+    public void left() {
+        assertTrue(Left(1).isLeft());
+        assertFalse(Left(1).isRight());
+        assertEquals("Left(123)", Left(123).toString());
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void left_invalidProjection() {
+        Left(1).right().get();
+    }
+
+    @Test
     public void equality() {
         assertEquals(Left(false), Left(false));
         assertNotEquals(Left(false), Left(true));
         assertNotEquals(Left(false), Right(true));
+        assertNotEquals(Left(false), null);
+        assertNotEquals(Left(false), "other object");
 
         assertEquals(Right(true), Right(true));
         assertNotEquals(Right(true), Right(false));
+        assertNotEquals(Right(true), null);
+        assertNotEquals(Right(true), "other object");
     }
 
     @Test
@@ -57,7 +88,7 @@ public class EitherTest {
         assertEquals(Right("hello world"), either1);
 
         Either<Integer, String> either2 = Left(1234);
-        either1 = either1.map(str -> str + " world");
+        either2 = either2.map(str -> str + " world");
         assertEquals(Left(1234), either2);
     }
 
@@ -87,21 +118,83 @@ public class EitherTest {
 
     @Test
     public void fold() {
+
+        final Function<Integer, String> intToString = i -> i.toString();
+        final Function<Double, String> doubleToString = d -> d.toString();
+
         final Either<Integer, String> either1 = Right("hello");
-        final String result1 = either1.fold(i -> i.toString(), identity());
+        final String result1 = either1.fold(intToString, identity());
         assertEquals("hello", result1);
 
         final Either<Integer, String> either2 = Left(52);
-        final String result2 = either2.fold(i -> i.toString(), identity());
+        final String result2 = either2.fold(intToString, identity());
         assertEquals("52", result2);
 
         final Either<Integer, Double> either3 = Right(100.786);
-        final String result3 = either3.fold(i -> i.toString(), d -> d.toString());
+        final String result3 = either3.fold(intToString, doubleToString);
         assertEquals("100.786", result3);
 
         final Either<Integer, Double> either4 = Left(1234);
-        final String result4 = either4.fold(i -> i.toString(), d -> d.toString());
+        final String result4 = either4.fold(intToString, doubleToString);
         assertEquals("1234", result4);
+    }
+
+    @Test
+    public void foldE() throws Throwable {
+        final FunctionE<Integer, String, Throwable> intToString = i -> i.toString();
+        final FunctionE<Double, String, Throwable> doubleToString = d -> d.toString();
+
+        final Either<Integer, String> either1 = Right("hello");
+        final String result1 = either1.foldE(intToString, FunctionE.identity());
+        assertEquals("hello", result1);
+
+        final Either<Integer, String> either2 = Left(52);
+        final String result2 = either2.foldE(intToString, FunctionE.identity());
+        assertEquals("52", result2);
+
+        final Either<Integer, Double> either3 = Right(100.786);
+        final String result3 = either3.foldE(intToString, doubleToString);
+        assertEquals("100.786", result3);
+
+        final Either<Integer, Double> either4 = Left(1234);
+        final String result4 = either4.foldE(intToString, doubleToString);
+        assertEquals("1234", result4);
+    }
+
+    @Test
+    public void foldE_leftException() throws Throwable {
+        final FunctionE<Integer, String, Throwable> intException = FunctionE.lift(new Exception("intException"));
+
+        final Either<Integer, String> either1 = Right("hello");
+        final String result1 = either1.foldE(intException, FunctionE.identity());
+        assertEquals("hello", result1);
+
+        final Either<Integer, String> either2 = Left(52);
+        try {
+            either2.foldE(intException, FunctionE.identity());
+            fail("We should have thrown an exception folding on the left");
+        } catch (final Exception e) {
+            //this exception is expected!
+            assertEquals("intException", e.getMessage());
+        }
+    }
+
+    @Test
+    public void foldE_RightException() throws Throwable {
+        final FunctionE<String, Integer, Throwable> intException = FunctionE.lift(new Exception("intException"));
+
+        final Either<Integer, String> either1 = Right("hello");
+        try {
+            either1.foldE(FunctionE.identity(), intException);
+            fail("We should have thrown an exception folding on the right");
+        } catch (final Exception e) {
+            //this exception is expected!
+            assertEquals("intException", e.getMessage());
+        }
+
+        final Either<Integer, String> either2 = Left(52);
+        final Integer result2 = either2.foldE(FunctionE.identity(), intException);
+        assertEquals(52, result2.intValue());
     }
 
     @Test
@@ -222,6 +315,18 @@ public class EitherTest {
         final Either<Integer, String> either2 = Left(5678);
         final Optional<String> optional2 = either2.toOptional();
         assertFalse(optional2.isPresent());
+    }
+
+    @Test
+    public void tryCatch() {
+        final Either<Throwable, String> either1 = Either.tryCatch(() -> "ok");
+        assertTrue(either1.isRight());
+        assertEquals("ok", either1.right().get());
+
+        final Either<Throwable, String> either2 = Either.tryCatch(() -> { throw new IllegalArgumentException("not-ok"); });
+        assertTrue(either2.isLeft());
+        assertTrue(either2.left().get() instanceof IllegalArgumentException);
+        assertEquals("not-ok", either2.left().get().getMessage());
     }
 
     @Test

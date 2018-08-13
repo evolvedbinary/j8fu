@@ -131,7 +131,6 @@ public abstract class Try<T, E extends Throwable> {
         }
     }
 
-
     /**
      * Try to execute a function.
      *
@@ -474,7 +473,7 @@ public abstract class Try<T, E extends Throwable> {
      * a checked exception as an
      * unchecked exception.
      */
-    private static final class UncheckedThrow {
+    static final class UncheckedThrow {
         private UncheckedThrow(){}
 
         public static void throwAsUnchecked(final Throwable ex){
