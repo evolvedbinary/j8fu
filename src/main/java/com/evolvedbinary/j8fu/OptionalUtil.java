@@ -40,7 +40,7 @@ import static com.evolvedbinary.j8fu.tuple.Tuple.Tuple;
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
-public class OptionalUtil {
+interface OptionalUtil {
 
     /**
      * Return the left Optional if present, else the right Optional.
@@ -52,7 +52,7 @@ public class OptionalUtil {
      *
      * @param <T> The type of the Optionals
      */
-    public static <T> Optional<T> or(final Optional<T> left, final Optional<T> right) {
+    static <T> Optional<T> or(final Optional<T> left, final Optional<T> right) {
         if(left.isPresent()) {
             return left;
         } else {
@@ -71,7 +71,7 @@ public class OptionalUtil {
      *
      * @param <T> The type of the Optionals
      */
-    public static <T> Optional<T> or(final Optional<T> left, final Supplier<Optional<T>> right) {
+    static <T> Optional<T> or(final Optional<T> left, final Supplier<Optional<T>> right) {
         if(left.isPresent()) {
             return left;
         } else {
@@ -90,7 +90,7 @@ public class OptionalUtil {
      *
      * @return An Optional Tuple, or an empty Optional.
      */
-    public static <T1, T2> Optional<Tuple2<T1, T2>> and(final Optional<T1> _1, final Optional<T2> _2) {
+    static <T1, T2> Optional<Tuple2<T1, T2>> and(final Optional<T1> _1, final Optional<T2> _2) {
         return _1.flatMap(t1 -> _2.map(t2 -> Tuple(t1, t2)));
     }
 
@@ -107,7 +107,7 @@ public class OptionalUtil {
      *
      * @return An Optional Tuple, or an empty Optional.
      */
-    public static <T1, T2, T3> Optional<Tuple3<T1, T2, T3>> and(final Optional<T1> _1, final Optional<T2> _2, final Optional<T3> _3) {
+    static <T1, T2, T3> Optional<Tuple3<T1, T2, T3>> and(final Optional<T1> _1, final Optional<T2> _2, final Optional<T3> _3) {
         return _1.flatMap(t1 -> _2.flatMap(t2 -> _3.map(t3 -> Tuple(t1, t2, t3))));
     }
 
@@ -126,7 +126,7 @@ public class OptionalUtil {
      *
      * @return An Optional Tuple, or an empty Optional.
      */
-    public static <T1, T2, T3, T4> Optional<Tuple4<T1, T2, T3, T4>> and(final Optional<T1> _1, final Optional<T2> _2, final Optional<T3> _3, final Optional<T4> _4) {
+    static <T1, T2, T3, T4> Optional<Tuple4<T1, T2, T3, T4>> and(final Optional<T1> _1, final Optional<T2> _2, final Optional<T3> _3, final Optional<T4> _4) {
         return _1.flatMap(t1 -> _2.flatMap(t2 -> _3.flatMap(t3 -> _4.map(t4 -> Tuple(t1, t2, t3, t4)))));
     }
 
@@ -147,7 +147,7 @@ public class OptionalUtil {
      *
      * @return An Optional Tuple, or an empty Optional.
      */
-    public static <T1, T2, T3, T4, T5> Optional<Tuple5<T1, T2, T3, T4, T5>> and(final Optional<T1> _1, final Optional<T2> _2, final Optional<T3> _3, final Optional<T4> _4, final Optional<T5> _5) {
+    static <T1, T2, T3, T4, T5> Optional<Tuple5<T1, T2, T3, T4, T5>> and(final Optional<T1> _1, final Optional<T2> _2, final Optional<T3> _3, final Optional<T4> _4, final Optional<T5> _5) {
         return _1.flatMap(t1 -> _2.flatMap(t2 -> _3.flatMap(t3 -> _4.flatMap(t4 -> _5.map(t5 -> Tuple(t1, t2, t3, t4, t5))))));
     }
 
@@ -170,7 +170,7 @@ public class OptionalUtil {
      *
      * @return An Optional Tuple, or an empty Optional.
      */
-    public static <T1, T2, T3, T4, T5, T6> Optional<Tuple6<T1, T2, T3, T4, T5, T6>> and(final Optional<T1> _1, final Optional<T2> _2, final Optional<T3> _3, final Optional<T4> _4, final Optional<T5> _5, final Optional<T6> _6) {
+    static <T1, T2, T3, T4, T5, T6> Optional<Tuple6<T1, T2, T3, T4, T5, T6>> and(final Optional<T1> _1, final Optional<T2> _2, final Optional<T3> _3, final Optional<T4> _4, final Optional<T5> _5, final Optional<T6> _6) {
         return _1.flatMap(t1 -> _2.flatMap(t2 -> _3.flatMap(t3 -> _4.flatMap(t4 -> _5.flatMap(t5 -> _6.map(t6 -> Tuple(t1, t2, t3, t4, t5, t6)))))));
     }
 
@@ -185,7 +185,7 @@ public class OptionalUtil {
      * @param optional the optional to create an Either from.
      * @return The disjunction.
      */
-    public static <L, R> Either<L,R> toEither(final Optional<R> optional) {
+    static <L, R> Either<L,R> toEither(final Optional<R> optional) {
         return toRight((L)null, optional);
     }
 
@@ -200,7 +200,7 @@ public class OptionalUtil {
      * @param optional the optional to create an Either from.
      * @return The disjunction.
      */
-    public static <L, R> Either<Optional<L>, R> toEitherOpt(final Optional<R> optional) {
+    static <L, R> Either<Optional<L>, R> toEitherOpt(final Optional<R> optional) {
         return optional.map(Either::<Optional<L>, R>Right).orElseGet(() -> Left(Optional.empty()));
     }
 
@@ -213,7 +213,7 @@ public class OptionalUtil {
      *
      * @return The disjunction.
      */
-    public static <L, R> Either<L,R> toLeft(final Optional<L> left, final R right) {
+    static <L, R> Either<L,R> toLeft(final Optional<L> left, final R right) {
         return left.map(Either::<L, R>Left).orElseGet(() -> Right(right));
     }
 
@@ -225,7 +225,7 @@ public class OptionalUtil {
      *
      * @return The disjunction.
      */
-    public static <L, R> Either<L,R> toLeft(final Optional<L> left, final Supplier<R> right) {
+    static <L, R> Either<L,R> toLeft(final Optional<L> left, final Supplier<R> right) {
         return left.map(Either::<L, R>Left).orElseGet(() -> Right(right.get()));
     }
 
@@ -238,7 +238,7 @@ public class OptionalUtil {
      *
      * @return The disjunction.
      */
-    public static <L, R> Either<L,R> toRight(final L left, final Optional<R> right) {
+    static <L, R> Either<L,R> toRight(final L left, final Optional<R> right) {
         return right.map(Either::<L, R>Right).orElseGet(() -> Left(left));
     }
 
@@ -250,7 +250,7 @@ public class OptionalUtil {
      *
      * @return The disjunction.
      */
-    public static <L, R> Either<L,R> toRight(final Supplier<L> left, final Optional<R> right) {
+    static <L, R> Either<L,R> toRight(final Supplier<L> left, final Optional<R> right) {
         return right.map(Either::<L, R>Right).orElseGet(() -> Left(left.get()));
     }
 
@@ -265,7 +265,7 @@ public class OptionalUtil {
      *
      * @param <T> The type of the value contained in the Optional.
      */
-    public static <T> List<T> toList(final Optional<T> optional) {
+    static <T> List<T> toList(final Optional<T> optional) {
         return optional.map(value -> {
             final List<T> list = new ArrayList<>();
             list.add(value);
@@ -284,7 +284,7 @@ public class OptionalUtil {
      *
      * @param <T> The type of the value contained in the Optional.
      */
-    public static <T> List<T> toImmutableList(final Optional<T> optional) {
+    static <T> List<T> toImmutableList(final Optional<T> optional) {
         return optional.map(Arrays::asList)
             .orElse(Collections.emptyList());
     }
