@@ -115,4 +115,41 @@ public interface QuadFunctionE<T, U, V, W, R, E extends Throwable> {
             }
         };
     }
+
+    /**
+     * Lifts a standard QuadFunction<T, R> to a QuadFunctionE<T, R, E>
+     *
+     * @param function the function to lift.
+     *
+     * @return the QuadFunctionE.
+     *
+     * @param <T> the type of the first input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <V> the type of the third input object to the function
+     * @param <W> the type of the fourth input object to the function
+     * @param <R> the type of the output object to the function
+     * @param <E> Function throws exception type
+     */
+    static <T, U, V, W, R, E extends Throwable> QuadFunctionE<T, U, V, W, R, E> lift(final QuadFunction<T, U, V, W, R> function) {
+        return function::apply;
+    }
+
+    /**
+     * Lifts an exception of type E to a QuadFunctionE<T, T, E>
+     * which will always throw the exception.
+     *
+     * @param exception the exception to lift.
+     *
+     * @return the QuadFunctionE.
+     *
+     * @param <T> the type of the input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <V> the type of the third input object to the function
+     * @param <W> the type of the fourth input object to the function
+     * @param <R> the type of the output object to the function
+     * @param <E> Function throws exception type
+     */
+    static <T, U, V, W, R, E extends Throwable> QuadFunctionE<T, U, V, W, R, E> lift(final E exception) {
+        return (t, u, v, w) -> { throw exception; };
+    }
 }

@@ -157,7 +157,7 @@ public abstract class Either<L, R> {
      * @throws LE The exception from the left-hand-side function.
      * @throws RE The exception from the right-hand-side function.
      */
-    public final <T, LE extends Exception, RE extends Exception> T foldE(
+    public final <T, LE extends Throwable, RE extends Throwable> T foldE(
             final FunctionE<L, T, LE> lf, final FunctionE<R, T, RE> rf) throws LE, RE {
         if(isLeft) {
             return lf.apply(((Left<L, R>)this).value);

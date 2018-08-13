@@ -117,4 +117,43 @@ public interface QuintFunctionE<T, U, V, W, X, R, E extends Throwable> {
             }
         };
     }
+
+    /**
+     * Lifts a standard QuintFunction<T, R> to a QuintFunctionE<T, R, E>
+     *
+     * @param function the function to lift.
+     *
+     * @return the QuadFunctionE.
+     *
+     * @param <T> the type of the first input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <V> the type of the third input object to the function
+     * @param <W> the type of the fourth input object to the function
+     * @param <X> the type of the fifth input object to the function
+     * @param <R> the type of the output object to the function
+     * @param <E> Function throws exception type
+     */
+    static <T, U, V, W, X, R, E extends Throwable> QuintFunctionE<T, U, V, W, X, R, E> lift(final QuintFunction<T, U, V, W, X, R> function) {
+        return function::apply;
+    }
+
+    /**
+     * Lifts an exception of type E to a QuintFunctionE<T, T, E>
+     * which will always throw the exception.
+     *
+     * @param exception the exception to lift.
+     *
+     * @return the QuintFunctionE.
+     *
+     * @param <T> the type of the input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <V> the type of the third input object to the function
+     * @param <W> the type of the fourth input object to the function
+     * @param <X> the type of the fifth input object to the function
+     * @param <R> the type of the output object to the function
+     * @param <E> Function throws exception type
+     */
+    static <T, U, V, W, X, R, E extends Throwable> QuintFunctionE<T, U, V, W, X, R, E> lift(final E exception) {
+        return (t, u, v, w, x) -> { throw exception; };
+    }
 }

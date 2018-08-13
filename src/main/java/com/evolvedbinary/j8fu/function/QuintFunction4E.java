@@ -176,4 +176,49 @@ public interface QuintFunction4E<T, U, V, W, X, R, E1 extends Throwable, E2 exte
             }
         };
     }
+
+    /**
+     * Lifts a standard QuintFunction<T, R> to a QuintFunction4E<T, R, E1, E2, E3, E4>
+     *
+     * @param function the function to lift.
+     *
+     * @return the QuintFunction4E.
+     *
+     * @param <T> the type of the first input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <V> the type of the third input object to the function
+     * @param <W> the type of the fourth input object to the function
+     * @param <X> the type of the fifth input object to the function
+     * @param <R> the type of the output object to the function
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     * @throws E4 An exception of type {@code E4}
+     */
+    static <T, U, V, W, X, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable> QuintFunction4E<T, U, V, W, X, R, E1, E2, E3, E4> lift(final QuintFunction<T, U, V, W, X, R> function) {
+        return function::apply;
+    }
+
+    /**
+     * Lifts an exception of type E to a QuintFunction4E<T, T, E1, E2, E3, E4>
+     * which will always throw the exception.
+     *
+     * @param exception the exception to lift.
+     *
+     * @return the QuintFunction4E.
+     *
+     * @param <T> the type of the input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <V> the type of the third input object to the function
+     * @param <W> the type of the fourth input object to the function
+     * @param <X> the type of the fifth input object to the function
+     * @param <R> the type of the output object to the function
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     * @throws E4 An exception of type {@code E4}
+     */
+    static <T, U, V, W, X, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable> QuintFunction4E<T, U, V, W, X, R, E1, E2, E3, E4> lift(final E1 exception) {
+        return (t, u, v, w, x) -> { throw exception; };
+    }
 }

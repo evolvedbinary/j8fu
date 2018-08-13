@@ -31,6 +31,7 @@ import com.evolvedbinary.j8fu.Either;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static com.evolvedbinary.j8fu.Either.Left;
 import static com.evolvedbinary.j8fu.Either.Right;
@@ -238,6 +239,53 @@ public interface FunctionE<T, R, E extends Throwable> {
                 return Left((E)e);
             }
         };
+    }
+
+    /**
+     * Lifts a standard Function<T, R> to a FunctionE<T, R, E>
+     *
+     * @param function the function to lift.
+     *
+     * @return the FunctionE.
+     *
+     * @param <T> the type of the input object to the function
+     * @param <R> the type of the output object to the function
+     * @param <E> Function throws exception type
+     */
+    static <T, R, E extends Throwable> FunctionE<T, R, E> lift(final Function<T, R> function) {
+         return function::apply;
+    }
+
+    /**
+     * Lifts an exception of type E to a FunctionE<T, T, E>
+     * which will always throw the exception.
+     *
+     * @param exception the exception to lift.
+     *
+     * @return the FunctionE.
+     *
+     * @param <T> the type of the input object to the function
+     * @param <R> the type of the output object to the function
+     * @param <E> Function throws exception type
+     */
+    static <T, R, E extends Throwable> FunctionE<T, R, E> lift(final E exception) {
+        return t -> { throw exception; };
+    }
+
+    /**
+     * Lifts a supplier exception of type E to a FunctionE<T, T, E>
+     * which will always throw the exception.
+     *
+     * @param exception the exception to lift.
+     *
+     * @return the FunctionE.
+     *
+     * @param <T> the type of the input object to the function
+     * @param <R> the type of the output object to the function
+     * @param <E> Function throws exception type
+     */
+    static <T, R, E extends Throwable> FunctionE<T, R, E> lift(final Supplier<E> exception) {
+        return t -> { throw exception.get(); };
     }
 
     /**

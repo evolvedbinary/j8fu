@@ -134,4 +134,39 @@ public interface BiFunction2E<T, U, R, E1 extends Throwable, E2 extends Throwabl
             }
         };
     }
+
+    /**
+     * Lifts a standard BiFunction<T, R> to a BiFunction2E<T, R, E1, E2>
+     *
+     * @param function the function to lift.
+     *
+     * @return the BiFunction2E.
+     *
+     * @param <T> the type of the first input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <R> the type of the output object to the function
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     */
+    static <T, U, R, E1 extends Throwable, E2 extends Throwable> BiFunction2E<T, U, R, E1, E2> lift(final BiFunction<T, U, R> function) {
+        return function::apply;
+    }
+
+    /**
+     * Lifts an exception of type E to a BiFunction2E<T, T, E1, E2>
+     * which will always throw the exception.
+     *
+     * @param exception the exception to lift.
+     *
+     * @return the BiFunction2E.
+     *
+     * @param <T> the type of the input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <R> the type of the output object to the function
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     */
+    static <T, U, R, E1 extends Throwable, E2 extends Throwable> BiFunction2E<T, U, R, E1, E2> lift(final E1 exception) {
+        return (t, u) -> { throw exception; };
+    }
 }

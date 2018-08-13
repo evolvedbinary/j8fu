@@ -113,4 +113,39 @@ public interface TriFunctionE<T, U, V, R, E extends Throwable> {
             }
         };
     }
+
+    /**
+     * Lifts a standard TriFunction<T, R> to a TriFunctionE<T, R, E>
+     *
+     * @param function the function to lift.
+     *
+     * @return the TriFunctionE.
+     *
+     * @param <T> the type of the first input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <V> the type of the third input object to the function
+     * @param <R> the type of the output object to the function
+     * @param <E> Function throws exception type
+     */
+    static <T, U, V, R, E extends Throwable> TriFunctionE<T, U, V, R, E> lift(final TriFunction<T, U, V, R> function) {
+        return function::apply;
+    }
+
+    /**
+     * Lifts an exception of type E to a TriFunctionE<T, T, E>
+     * which will always throw the exception.
+     *
+     * @param exception the exception to lift.
+     *
+     * @return the TriFunctionE.
+     *
+     * @param <T> the type of the input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <V> the type of the third input object to the function
+     * @param <R> the type of the output object to the function
+     * @param <E> Function throws exception type
+     */
+    static <T, U, V, R, E extends Throwable> TriFunctionE<T, U, V, R, E> lift(final E exception) {
+        return (t, u, v) -> { throw exception; };
+    }
 }

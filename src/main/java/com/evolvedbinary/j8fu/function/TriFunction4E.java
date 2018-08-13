@@ -172,4 +172,45 @@ public interface TriFunction4E<T, U, V, R, E1 extends Throwable, E2 extends Thro
             }
         };
     }
+
+    /**
+     * Lifts a standard TriFunction<T, R> to a TriFunction4E<T, R, E1, E2, E3, E4>
+     *
+     * @param function the function to lift.
+     *
+     * @return the TriFunction4E.
+     *
+     * @param <T> the type of the first input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <V> the type of the third input object to the function
+     * @param <R> the type of the output object to the function
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     * @throws E4 An exception of type {@code E4}
+     */
+    static <T, U, V, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable> TriFunction4E<T, U, V, R, E1, E2, E3, E4> lift(final TriFunction<T, U, V, R> function) {
+        return function::apply;
+    }
+
+    /**
+     * Lifts an exception of type E to a TriFunction4E<T, T, E1, E2, E3, E4>
+     * which will always throw the exception.
+     *
+     * @param exception the exception to lift.
+     *
+     * @return the TriFunction4E.
+     *
+     * @param <T> the type of the input object to the function
+     * @param <U> the type of the second input object to the function
+     * @param <V> the type of the third input object to the function
+     * @param <R> the type of the output object to the function
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     * @throws E4 An exception of type {@code E4}
+     */
+    static <T, U, V, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable> TriFunction4E<T, U, V, R, E1, E2, E3, E4> lift(final E1 exception) {
+        return (t, u, v) -> { throw exception; };
+    }
 }
