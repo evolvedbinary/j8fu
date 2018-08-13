@@ -185,8 +185,8 @@ public class OptionalUtil {
      * @param optional the optional to create an Either from.
      * @return The disjunction.
      */
-    private static <L, R> Either<L,R> toEither(final Optional<R> optional) {
-        return toRight(null, optional);
+    public static <L, R> Either<L,R> toEither(final Optional<R> optional) {
+        return toRight((L)null, optional);
     }
 
     /**
@@ -200,7 +200,7 @@ public class OptionalUtil {
      * @param optional the optional to create an Either from.
      * @return The disjunction.
      */
-    private static <L, R> Either<Optional<L>, R> toEitherOpt(final Optional<R> optional) {
+    public static <L, R> Either<Optional<L>, R> toEitherOpt(final Optional<R> optional) {
         return optional.map(Either::<Optional<L>, R>Right).orElseGet(() -> Left(Optional.empty()));
     }
 
@@ -213,10 +213,9 @@ public class OptionalUtil {
      *
      * @return The disjunction.
      */
-    private static <L, R> Either<L,R> toLeft(final Optional<L> left, final R right) {
+    public static <L, R> Either<L,R> toLeft(final Optional<L> left, final R right) {
         return left.map(Either::<L, R>Left).orElseGet(() -> Right(right));
     }
-
 
     /**
      * A lazy version of {@link #toLeft(Optional, Object)}.
@@ -226,7 +225,7 @@ public class OptionalUtil {
      *
      * @return The disjunction.
      */
-    private static <L, R> Either<L,R> toLeft(final Optional<L> left, final Supplier<R> right) {
+    public static <L, R> Either<L,R> toLeft(final Optional<L> left, final Supplier<R> right) {
         return left.map(Either::<L, R>Left).orElseGet(() -> Right(right.get()));
     }
 
@@ -239,7 +238,7 @@ public class OptionalUtil {
      *
      * @return The disjunction.
      */
-    private static <L, R> Either<L,R> toRight(final L left, final Optional<R> right) {
+    public static <L, R> Either<L,R> toRight(final L left, final Optional<R> right) {
         return right.map(Either::<L, R>Right).orElseGet(() -> Left(left));
     }
 
@@ -251,7 +250,7 @@ public class OptionalUtil {
      *
      * @return The disjunction.
      */
-    private static <L, R> Either<L,R> toRight(final Supplier<L> left, final Optional<R> right) {
+    public static <L, R> Either<L,R> toRight(final Supplier<L> left, final Optional<R> right) {
         return right.map(Either::<L, R>Right).orElseGet(() -> Left(left.get()));
     }
 
