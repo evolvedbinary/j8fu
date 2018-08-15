@@ -137,7 +137,7 @@ public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof Tuple5 && obj != null) {
+        if (obj != null && obj instanceof Tuple5) {
             final Tuple5 other = (Tuple5)obj;
             return isEqual(_1, other._1)
                     && isEqual(_2, other._2)
@@ -155,7 +155,10 @@ public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
         } else if(other instanceof Tuple6) {
             final Tuple6 tuple6 = (Tuple6) other;
             return isEqual(_1, tuple6._1)
-                    && isEqual(_2, tuple6._2);
+                    && isEqual(_2, tuple6._2)
+                    && isEqual(_3, tuple6._3)
+                    && isEqual(_4, tuple6._4)
+                    && isEqual(_5, tuple6._5);
         } else {
             return false;
         }
@@ -227,12 +230,12 @@ public class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
 
     @Override
     public <T0> Tuple after(final T0 _0) {
-        throw new UnsupportedOperationException("Tuples greater than size 5 are not yet supported");
+        return new Tuple6<>(_0, this);
     }
 
     @Override
     public <T5> Tuple before(final T5 _5) {
-        throw new UnsupportedOperationException("Tuples greater than size 5 are not yet supported");
+        return new Tuple6<>(this, _5);
     }
 
     @Override

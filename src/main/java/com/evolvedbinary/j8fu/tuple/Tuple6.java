@@ -153,7 +153,7 @@ public class Tuple6<T1, T2, T3, T4, T5, T6> implements Tuple {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof Tuple6 && obj != null) {
+        if (obj != null && obj instanceof Tuple6) {
             final Tuple6 other = (Tuple6)obj;
             return isEqual(_1, other._1)
                     && isEqual(_2, other._2)

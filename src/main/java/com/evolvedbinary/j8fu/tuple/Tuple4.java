@@ -122,7 +122,7 @@ public class Tuple4<T1, T2, T3, T4> implements Tuple {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof Tuple4 && obj != null) {
+        if (obj != null && obj instanceof Tuple4) {
             final Tuple4 other = (Tuple4)obj;
             return isEqual(_1, other._1)
                     && isEqual(_2, other._2)
@@ -144,11 +144,15 @@ public class Tuple4<T1, T2, T3, T4> implements Tuple {
         } else if(other instanceof Tuple5) {
             final Tuple5 tuple5 = (Tuple5) other;
             return isEqual(_1, tuple5._1)
-                    && isEqual(_2, tuple5._2);
+                    && isEqual(_2, tuple5._2)
+                    && isEqual(_3, tuple5._3)
+                    && isEqual(_4, tuple5._4);
         } else if(other instanceof Tuple6) {
             final Tuple6 tuple6 = (Tuple6) other;
             return isEqual(_1, tuple6._1)
-                    && isEqual(_2, tuple6._2);
+                    && isEqual(_2, tuple6._2)
+                    && isEqual(_3, tuple6._3)
+                    && isEqual(_4, tuple6._4);
         } else {
             return false;
         }
