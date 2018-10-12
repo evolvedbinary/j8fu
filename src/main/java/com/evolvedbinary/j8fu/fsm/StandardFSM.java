@@ -58,7 +58,13 @@ public class StandardFSM<State extends Enum<State>, Event extends Enum<Event>> e
         if(result.isLeft()) {
             throw result.left().get();
         } else {
-            this.currentState = result.right().get();
+            final State newState = result.right().get();
+
+            // check if 'ignore(...)' was specified, i.e. there is no state transition to make
+            if (newState != currentState) {
+                this.currentState = newState;
+            }
+
             return currentState;
         }
     }

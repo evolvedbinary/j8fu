@@ -114,8 +114,12 @@ public class BlockingFSM<State extends Enum<State>, Event extends Enum<Event>> e
                 throw result.left().get();
             } else {
                 final State newState = result.right().get();
-                this.currentState = newState;
-                return newState;
+                // check if 'ignore(...)' was specified, i.e. there is no state transition to make
+                if (newState != currentState) {
+                    this.currentState = newState;
+                }
+
+                return currentState;
             }
         } finally {
             stateLock.writeLock().unlock();

@@ -101,4 +101,23 @@ public class StandardFSMTest {
         assertEquals(LOCKED, fsm.process(PUSH));
         assertEquals(LOCKED, fsm.getCurrentState());
     }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void processEvents_explicitIgnore() {
+        final StandardFSM<TurnstileState, TurnstileEvent> fsm = new StandardFSM<>(
+                LOCKED,
+                transitionTable(TurnstileState.class, TurnstileEvent.class)
+                        .when(LOCKED).on(COIN).switchTo(UNLOCKED)
+                        .when(UNLOCKED).on(PUSH).switchTo(LOCKED)
+                        .when(UNLOCKED).ignore(COIN)
+                        .build()
+        );
+
+        assertEquals(LOCKED, fsm.getCurrentState());
+        assertEquals(UNLOCKED, fsm.process(COIN));
+        assertEquals(UNLOCKED, fsm.process(COIN));  // we can add more coins, because we explicitly ignore above
+        assertEquals(UNLOCKED, fsm.process(COIN));
+    }
+
 }

@@ -155,6 +155,20 @@ public class TransitionTable<State extends Enum<State>, Event extends Enum<Event
             public NewStateBuilder on(final Event event) {
                 return new NewStateBuilder(currentState, event);
             }
+
+            public TransitionTableBuilderS ignore(final Event event) {
+                EnumMap<Event, State> transition = transitionTable.get(currentState);
+                if(transition == null) {
+                    transition = new EnumMap<>(eventType);
+                }
+
+                // Mapping from when(currentState).on(event).switchTo(currentState) -- signifies ignore!
+                transition.put(event, currentState);
+
+                transitionTable.put(currentState, transition);
+
+                return new TransitionTableBuilderS(currentState);
+            }
         }
 
         public class NewStateBuilder {

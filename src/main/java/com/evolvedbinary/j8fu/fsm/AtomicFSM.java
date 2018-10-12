@@ -72,7 +72,14 @@ public class AtomicFSM<State extends Enum<State>, Event extends Enum<Event>> ext
             throw result.left().get();
         }
 
-        if(currentState.compareAndSet(state, result.right().get())) {
+        final State newState = result.right().get();
+
+        if (newState == state) {
+            // 'ignore(...)' was specified, there is no state transition to make
+            return state;
+        }
+
+        if (currentState.compareAndSet(state, newState)) {
             return result.right().get();
         }
 
