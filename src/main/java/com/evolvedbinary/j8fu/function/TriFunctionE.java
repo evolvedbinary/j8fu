@@ -115,7 +115,7 @@ public interface TriFunctionE<T, U, V, R, E extends Throwable> {
     }
 
     /**
-     * Lifts a standard TriFunction<T, R> to a TriFunctionE<T, R, E>
+     * Lifts a standard {@code TriFunction<T, R>} to a {@code TriFunctionE<T, R, E>}
      *
      * @param function the function to lift.
      *
@@ -132,7 +132,7 @@ public interface TriFunctionE<T, U, V, R, E extends Throwable> {
     }
 
     /**
-     * Lifts an exception of type E to a TriFunctionE<T, T, E>
+     * Lifts an exception of type {@code <E>} to a {@code TriFunctionE<T, T, E>}
      * which will always throw the exception.
      *
      * @param exception the exception to lift.

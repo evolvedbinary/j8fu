@@ -119,7 +119,7 @@ public interface QuintFunctionE<T, U, V, W, X, R, E extends Throwable> {
     }
 
     /**
-     * Lifts a standard QuintFunction<T, R> to a QuintFunctionE<T, R, E>
+     * Lifts a standard {@code QuintFunction<T, R>} to a {@code QuintFunctionE<T, R, E>}.
      *
      * @param function the function to lift.
      *
@@ -138,7 +138,7 @@ public interface QuintFunctionE<T, U, V, W, X, R, E extends Throwable> {
     }
 
     /**
-     * Lifts an exception of type E to a QuintFunctionE<T, T, E>
+     * Lifts an exception of type {@code <E>} to a {@code QuintFunctionE<T, T, E>}
      * which will always throw the exception.
      *
      * @param exception the exception to lift.

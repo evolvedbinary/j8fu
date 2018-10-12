@@ -116,7 +116,7 @@ public interface BiFunctionE<T, U, R, E extends Throwable> {
     }
 
     /**
-     * Lifts a standard BiFunction<T, R> to a BiFunctionE<T, R, E>
+     * Lifts a standard {@code BiFunction<T, R>} to a {@code BiFunctionE<T, R, E>}.
      *
      * @param function the function to lift.
      *
@@ -132,7 +132,7 @@ public interface BiFunctionE<T, U, R, E extends Throwable> {
     }
 
     /**
-     * Lifts an exception of type E to a BiFunctionE<T, T, E>
+     * Lifts an exception of type {@code <E>} to a {@code BiFunctionE<T, T, E>}
      * which will always throw the exception.
      *
      * @param exception the exception to lift.

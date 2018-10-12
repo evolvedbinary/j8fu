@@ -136,7 +136,7 @@ public interface QuadFunction2E<T, U, V, W, R, E1 extends Throwable, E2 extends 
     }
 
     /**
-     * Lifts a standard QuadFunction<T, R> to a QuadFunction2E<T, R, E1, E2>
+     * Lifts a standard {@code QuadFunction<T, R>} to a {@code QuadFunction2E<T, R, E1, E2>}.
      *
      * @param function the function to lift.
      *
@@ -147,15 +147,15 @@ public interface QuadFunction2E<T, U, V, W, R, E1 extends Throwable, E2 extends 
      * @param <V> the type of the third input object to the function
      * @param <W> the type of the fourth input object to the function
      * @param <R> the type of the output object to the function
-     * @throws E1 An exception of type {@code E1}
-     * @throws E2 An exception of type {@code E2}
+     * @param <E1> An exception of type {@code E1}
+     * @param <E2> An exception of type {@code E2}
      */
     static <T, U, V, W, R, E1 extends Throwable, E2 extends Throwable> QuadFunction2E<T, U, V, W, R, E1, E2> lift(final QuadFunction<T, U, V, W, R> function) {
         return function::apply;
     }
 
     /**
-     * Lifts an exception of type E to a QuadFunction2E<T, T, E1, E2>
+     * Lifts an exception of type {@code <E>} to a {@code QuadFunction2E<T, T, E1, E2>}
      * which will always throw the exception.
      *
      * @param exception the exception to lift.
@@ -167,8 +167,8 @@ public interface QuadFunction2E<T, U, V, W, R, E1 extends Throwable, E2 extends 
      * @param <V> the type of the third input object to the function
      * @param <W> the type of the fourth input object to the function
      * @param <R> the type of the output object to the function
-     * @throws E1 An exception of type {@code E1}
-     * @throws E2 An exception of type {@code E2}
+     * @param <E1> An exception of type {@code E1}
+     * @param <E2> An exception of type {@code E2}
      */
     static <T, U, V, W, R, E1 extends Throwable, E2 extends Throwable> QuadFunction2E<T, U, V, W, R, E1, E2> lift(final E1 exception) {
         return (t, u, v, w) -> { throw exception; };

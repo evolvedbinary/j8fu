@@ -242,7 +242,7 @@ public interface BiFunction7E<T, U, R, E1 extends Throwable, E2 extends Throwabl
     }
 
     /**
-     * Lifts a standard BiFunction<T, R> to a BiFunction7E<T, R, E1, E2, E3, E4, E5, E6, E7>
+     * Lifts a standard {@code BiFunction<T, R>} to a {@code BiFunction7E<T, R, E1, E2, E3, E4, E5, E6, E7>}.
      *
      * @param function the function to lift.
      *
@@ -251,20 +251,20 @@ public interface BiFunction7E<T, U, R, E1 extends Throwable, E2 extends Throwabl
      * @param <T> the type of the first input object to the function
      * @param <U> the type of the second input object to the function
      * @param <R> the type of the output object to the function
-     * @throws E1 An exception of type {@code E1}
-     * @throws E2 An exception of type {@code E2}
-     * @throws E3 An exception of type {@code E3}
-     * @throws E4 An exception of type {@code E4}
-     * @throws E5 An exception of type {@code E5}
-     * @throws E6 An exception of type {@code E6}
-     * @throws E7 An exception of type {@code E7}
+     * @param <E1> An exception of type {@code E1}
+     * @param <E2> An exception of type {@code E2}
+     * @param <E3> An exception of type {@code E3}
+     * @param <E4> An exception of type {@code E4}
+     * @param <E5> An exception of type {@code E5}
+     * @param <E6> An exception of type {@code E6}
+     * @param <E7> An exception of type {@code E7}
      */
     static <T, U, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable, E5 extends Throwable, E6 extends Throwable, E7 extends Throwable> BiFunction7E<T, U, R, E1, E2, E3, E4, E5, E6, E7> lift(final BiFunction<T, U, R> function) {
         return function::apply;
     }
 
     /**
-     * Lifts an exception of type E to a BiFunction7E<T, T, E1, E2, E3, E4, E5, E6, E7>
+     * Lifts an exception of type {@code <E>} to a {@code BiFunction7E<T, T, E1, E2, E3, E4, E5, E6, E7>}
      * which will always throw the exception.
      *
      * @param exception the exception to lift.
@@ -274,13 +274,13 @@ public interface BiFunction7E<T, U, R, E1 extends Throwable, E2 extends Throwabl
      * @param <T> the type of the input object to the function
      * @param <U> the type of the second input object to the function
      * @param <R> the type of the output object to the function
-     * @throws E1 An exception of type {@code E1}
-     * @throws E2 An exception of type {@code E2}
-     * @throws E3 An exception of type {@code E3}
-     * @throws E4 An exception of type {@code E4}
-     * @throws E5 An exception of type {@code E5}
-     * @throws E6 An exception of type {@code E6}
-     * @throws E7 An exception of type {@code E7}
+     * @param <E1> An exception of type {@code E1}
+     * @param <E2> An exception of type {@code E2}
+     * @param <E3> An exception of type {@code E3}
+     * @param <E4> An exception of type {@code E4}
+     * @param <E5> An exception of type {@code E5}
+     * @param <E6> An exception of type {@code E6}
+     * @param <E7> An exception of type {@code E7}
      */
     static <T, U, R, E1 extends Throwable, E2 extends Throwable, E3 extends Throwable, E4 extends Throwable, E5 extends Throwable, E6 extends Throwable, E7 extends Throwable> BiFunction7E<T, U, R, E1, E2, E3, E4, E5, E6, E7> lift(final E1 exception) {
         return (t, u) -> { throw exception; };

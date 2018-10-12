@@ -117,7 +117,7 @@ public interface QuadFunctionE<T, U, V, W, R, E extends Throwable> {
     }
 
     /**
-     * Lifts a standard QuadFunction<T, R> to a QuadFunctionE<T, R, E>
+     * Lifts a standard {@code QuadFunction<T, R>} to a {@code QuadFunctionE<T, R, E>}.
      *
      * @param function the function to lift.
      *
@@ -135,7 +135,7 @@ public interface QuadFunctionE<T, U, V, W, R, E extends Throwable> {
     }
 
     /**
-     * Lifts an exception of type E to a QuadFunctionE<T, T, E>
+     * Lifts an exception of type {@code <E>} to a {@code QuadFunctionE<T, T, E>}
      * which will always throw the exception.
      *
      * @param exception the exception to lift.
