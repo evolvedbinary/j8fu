@@ -80,6 +80,9 @@ public class Tuple2<T1, T2> implements Tuple {
     public boolean equals(final Object obj) {
         if (obj != null && obj instanceof Tuple2) {
             final Tuple2 other = (Tuple2)obj;
+            if (other == this) {
+                return true;
+            }
             return isEqual(_1, other._1)
                     && isEqual(_2, other._2);
         }

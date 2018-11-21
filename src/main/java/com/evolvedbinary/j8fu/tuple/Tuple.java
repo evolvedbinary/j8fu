@@ -51,7 +51,7 @@ public interface Tuple {
     default <T> boolean isEqual(final T v1, final T v2) {
         if(v1 == null && v2 == null) {
             return true;
-        } if(v1 == null) {
+        } if(v1 == null ^ v2 == null) {
             return false;
         } else {
             return v1.equals(v2);

@@ -124,6 +124,9 @@ public class Tuple4<T1, T2, T3, T4> implements Tuple {
     public boolean equals(final Object obj) {
         if (obj != null && obj instanceof Tuple4) {
             final Tuple4 other = (Tuple4)obj;
+            if (other == this) {
+                return true;
+            }
             return isEqual(_1, other._1)
                     && isEqual(_2, other._2)
                     && isEqual(_3, other._3)

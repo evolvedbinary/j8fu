@@ -106,6 +106,9 @@ public class Tuple3<T1, T2, T3> implements Tuple {
     public boolean equals(final Object obj) {
         if (obj != null && obj instanceof Tuple3) {
             final Tuple3 other = (Tuple3)obj;
+            if (other == this) {
+                return true;
+            }
             return isEqual(_1, other._1)
                     && isEqual(_2, other._2)
                     && isEqual(_3, other._3);

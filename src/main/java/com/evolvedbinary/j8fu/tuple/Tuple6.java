@@ -155,6 +155,9 @@ public class Tuple6<T1, T2, T3, T4, T5, T6> implements Tuple {
     public boolean equals(final Object obj) {
         if (obj != null && obj instanceof Tuple6) {
             final Tuple6 other = (Tuple6)obj;
+            if (other == this) {
+                return true;
+            }
             return isEqual(_1, other._1)
                     && isEqual(_2, other._2)
                     && isEqual(_3, other._3)
