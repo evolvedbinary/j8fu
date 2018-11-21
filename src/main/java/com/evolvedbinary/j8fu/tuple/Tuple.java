@@ -26,6 +26,7 @@
  */
 package com.evolvedbinary.j8fu.tuple;
 
+import java.util.Arrays;
 import java.util.function.BiFunction;
 
 /**
@@ -54,7 +55,31 @@ public interface Tuple {
         } if(v1 == null ^ v2 == null) {
             return false;
         } else {
-            return v1.equals(v2);
+            if (v1.getClass().isArray() && v2.getClass().isArray()) {
+                if (v1 instanceof byte[] && v2 instanceof byte[]) {
+                    return Arrays.equals((byte[])v1, (byte[])v2);
+                } else if (v1 instanceof char[] && v2 instanceof char[]) {
+                    return Arrays.equals((char[])v1, (char[])v2);
+                } else if (v1 instanceof int[] && v2 instanceof int[]) {
+                    return Arrays.equals((int[])v1, (int[])v2);
+                } else if (v1 instanceof short[] && v2 instanceof short[]) {
+                    return Arrays.equals((short[])v1, (short[])v2);
+                } else if (v1 instanceof long[] && v2 instanceof long[]) {
+                    return Arrays.equals((long[])v1, (long[])v2);
+                } else if (v1 instanceof float[] && v2 instanceof float[]) {
+                    return Arrays.equals((float[])v1, (float[])v2);
+                } else if (v1 instanceof double[] && v2 instanceof double[]) {
+                    return Arrays.equals((double[])v1, (double[])v2);
+                } else if (v1 instanceof boolean[] && v2 instanceof boolean[]) {
+                    return Arrays.equals((boolean[])v1, (boolean[])v2);
+                } else if (v1 instanceof Object[] && v2 instanceof Object[]) {
+                    return Arrays.equals((Object[])v1, (Object[])v2);
+                } else {
+                    return false;
+                }
+            } else {
+                return v1.equals(v2);
+            }
         }
     }
 

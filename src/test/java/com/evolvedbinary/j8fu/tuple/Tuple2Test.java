@@ -84,6 +84,29 @@ public class Tuple2Test {
     }
 
     @Test
+    public void testEqualsArrays() {
+        // array tests
+        final Tuple2<int[], char[]> tupleArrays1 = new Tuple2<>(new int[] {1,2,3}, new char[]{'a','b','c'});
+        final Tuple2<int[], char[]> tupleArrays2 = new Tuple2<>(new int[] {4,5,6}, new char[]{'d','e','f'});
+
+        assertEquals(tupleArrays1, tupleArrays1);
+        assertNotEquals(tupleArrays1, tupleArrays2);
+        assertEquals(tupleArrays1, Tuple(new int[] {1,2,3}, new char[]{'a','b','c'}));
+        assertNotEquals(tupleArrays1, Tuple(new int[] {9,2,3}, new char[]{'a','b','c'}));
+        assertNotEquals(tupleArrays1, Tuple(new int[] {1,2,3}, new char[]{'z','b','c'}));
+
+        assertNotEquals(tupleArrays1, Tuple(new int[0], new char[0]));
+        assertNotEquals(tupleArrays1, Tuple(new int[0], null));
+        assertNotEquals(tupleArrays1, Tuple(null, new char[0]));
+        assertNotEquals(tupleArrays1, Tuple(null, null));
+
+        assertNotEquals(Tuple(new int[0], new char[0]), tupleArrays1);
+        assertNotEquals(Tuple(new int[0], null), tupleArrays1);
+        assertNotEquals(Tuple(null, new char[0]), tupleArrays1);
+        assertNotEquals(Tuple(null, null), tupleArrays1);
+    }
+
+    @Test
     public void isPrefixOf() {
         final Tuple2<Integer, Integer> tuple1 = new Tuple2<>(1,2);
         final Tuple2<Integer, Integer> tuple2 = new Tuple2<>(3,4);
