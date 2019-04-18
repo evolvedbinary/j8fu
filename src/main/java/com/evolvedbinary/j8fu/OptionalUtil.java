@@ -40,7 +40,7 @@ import static com.evolvedbinary.j8fu.tuple.Tuple.Tuple;
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
-interface OptionalUtil {
+public interface OptionalUtil {
 
     /**
      * Return the left Optional if present, else the right Optional.
