@@ -460,6 +460,13 @@ public abstract class Either<L, R> {
                 return value.equals(other);
             }
         }
+
+        @Override
+        public int hashCode() {
+            int result = value != null ? value.hashCode() : 0;
+            result = 31 * result + 0;  // + 0 for Left
+            return result;
+        }
     }
 
     public static class Right<L, R> extends Either<L, R> {
@@ -485,6 +492,13 @@ public abstract class Either<L, R> {
             } else{
                 return value.equals(other);
             }
+        }
+
+        @Override
+        public int hashCode() {
+            int result = value != null ? value.hashCode() : 0;
+            result = 31 * result + 1;  // + 1 for Right
+            return result;
         }
     }
 
