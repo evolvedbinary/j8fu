@@ -34,7 +34,7 @@ import java.util.Objects;
  *
  * @param <T> the type of the first input to the operation
  * @param <U> the type of the second input to the operation
- * @param <U> the type of the third input to the operation
+ * @param <V> the type of the third input to the operation
  *
  * @author <a href="mailto:adam@evolvedbinary.com">Adam Retter</a>
  */
