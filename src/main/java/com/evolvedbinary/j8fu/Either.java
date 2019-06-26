@@ -32,6 +32,7 @@ import com.evolvedbinary.j8fu.function.SupplierE;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -259,6 +260,90 @@ public abstract class Either<L, R> {
             throw lf.apply(((Left<L, R>)this).value);
         } else {
             return ((Right<L, R>)this).value;
+        }
+    }
+
+    /**
+     * If this is a Right, ensures that the right value of this disjunction satisfies the given predicate,
+     * or returns left with the given value.
+     *
+     * @param left the value to use for the left if the predicate is invalidated
+     * @param rightPredicate the predicate to validate on the right of the disjunction
+     *
+     * @return either `this` if the predicate holds, or else a disjunction with the left value of {@code left}
+     */
+    public final Either<L, R> ensure(final L left, final Predicate<R> rightPredicate) {
+        if (isLeft()) {
+            return this;
+        } else {
+            if (rightPredicate.test(this.right().get())) {
+                return this;
+            } else {
+                return Left(left);
+            }
+        }
+    }
+
+    /**
+     * If this is a Right, ensures that the right value of this disjunction satisfies the given predicate,
+     * or returns left with the given value.
+     *
+     * @param left the value to use for the left if the predicate is invalidated
+     * @param rightPredicate the predicate to validate on the right of the disjunction
+     *
+     * @return either `this` if the predicate holds, or else a disjunction with the left value of {@code left}
+     */
+    public final Either<L, R> ensure(final Supplier<L> left, final Predicate<R> rightPredicate) {
+        if (isLeft()) {
+            return this;
+        } else {
+            if (rightPredicate.test(this.right().get())) {
+                return this;
+            } else {
+                return Left(left.get());
+            }
+        }
+    }
+
+    /**
+     * If this is a Left, ensures that the left value of this disjunction satisfies the given predicate,
+     * or returns right with the given value.
+     *
+     * @param leftPredicate the predicate to validate on the left of the disjunction
+     * @param right the value to use for the right if the predicate is invalidated
+     *
+     * @return either `this` if the predicate holds, or else a disjunction with the right value of {@code right}
+     */
+    public final Either<L, R> ensure(final Predicate<L> leftPredicate, final R right) {
+        if (isLeft()) {
+            if (leftPredicate.test(this.left().get())) {
+                return this;
+            } else {
+                return Right(right);
+            }
+        } else {
+            return this;
+        }
+    }
+
+    /**
+     * If this is a Left, ensures that the left value of this disjunction satisfies the given predicate,
+     * or returns right with the given value.
+     *
+     * @param leftPredicate the predicate to validate on the left of the disjunction
+     * @param right the value to use for the right if the predicate is invalidated
+     *
+     * @return either `this` if the predicate holds, or else a disjunction with the right value of {@code right}
+     */
+    public final Either<L, R> ensure(final Predicate<L> leftPredicate, final Supplier<R> right) {
+        if (isLeft()) {
+            if (leftPredicate.test(this.left().get())) {
+                return this;
+            } else {
+                return Right(right.get());
+            }
+        } else {
+            return this;
         }
     }
 
