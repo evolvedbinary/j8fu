@@ -74,6 +74,14 @@
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.5</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.eluder.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>4.3.0</version>
+                    <configuration>
+                        <repoToken>${env.COVERALLS_TOKEN}</repoToken>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -151,11 +159,35 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M4</version>
+                <configuration>
+                    <argLine>@{jacocoArgLine} -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.0.0-M4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>  <!-- TODO(AR) disabled due to slow `mvn site` build times -->
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <propertyName>jacocoArgLine</propertyName>
+                </configuration>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
@@ -261,27 +293,6 @@
                     <tagNameFormat>@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.sigpwned</groupId>
-                <artifactId>jacoco-badge-maven-plugin</artifactId>
-                <version>0.1.4</version>
-                <executions>
-                    <execution>
-                        <id>generate-jacoco-badge</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>badge</goal>
-                        </goals>
-                        <configuration>
-                            <passing>90</passing>
-
-                            <!-- Legal values: instruction, branch, line, method. Optional, default instruction. -->
-                            <metric>instruction</metric>
-                            <reportFile>${project.build.directory}/site/jacoco/jacoco.xml</reportFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -301,6 +312,27 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>upload-jacoco-to-coveralls</id>
+            <activation>
+                <!-- enabled in CI environment i.e. Travis-CI -->
+                <property>
+                    <name>env.CI</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.eluder.coveralls</groupId>
+                        <artifactId>coveralls-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <pluginRepositories>
         <pluginRepository>
