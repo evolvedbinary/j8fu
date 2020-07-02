@@ -1,6 +1,6 @@
 # Java 8 Functional Utilities
 
-[![Build Status](https://travis-ci.org/adamretter/j8fu.png?branch=master)](https://travis-ci.org/adamretter/j8fu)
+[![Build Status](https://travis-ci.com/evolvedbinary/j8fu.png?branch=master)](https://travis-ci.com/evolvedbinary/j8fu)
 
 Some extra utility classes for making functional programming with Java 8
 just that little bit easier.
