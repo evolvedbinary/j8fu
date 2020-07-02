@@ -1,6 +1,7 @@
 # Java 8 Functional Utilities
 
 [![Build Status](https://travis-ci.com/evolvedbinary/j8fu.png?branch=master)](https://travis-ci.com/evolvedbinary/j8fu)
+[![Coverage Status](https://coveralls.io/repos/github/evolvedbinary/j8fu/badge.svg?branch=master)](https://coveralls.io/github/evolvedbinary/j8fu?branch=master)
 
 Some extra utility classes for making functional programming with Java 8
 just that little bit easier.
