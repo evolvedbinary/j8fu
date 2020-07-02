@@ -38,9 +38,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:https://github.com/adamretter/j8fu.git</connection>
-        <developerConnection>scm:git:https://github.com/adamretter/j8fu.git</developerConnection>
-        <url>scm:git:https://github.com/adamretter/j8fu.git</url>
+        <connection>scm:git:https://github.com/evolvedbinary/j8fu.git</connection>
+        <developerConnection>scm:git:https://github.com/evolvedbinary/j8fu.git</developerConnection>
+        <url>scm:git:https://github.com/evolvedbinary/j8fu.git</url>
         <tag>HEAD</tag>
     </scm>
 
