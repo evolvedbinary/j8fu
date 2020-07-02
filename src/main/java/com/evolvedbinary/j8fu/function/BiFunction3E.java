@@ -65,6 +65,20 @@ public interface BiFunction3E<T, U, R, E1 extends Throwable, E2 extends Throwabl
     R apply(final T t, final U u) throws E1, E2, E3;
 
     /**
+     * Partially applies this function to the given argument.
+     *
+     * @param t the first function argument
+     * @return the partially applied function
+     *
+     * @throws E1 An exception of type {@code E1}
+     * @throws E2 An exception of type {@code E2}
+     * @throws E3 An exception of type {@code E3}
+     */
+    default Function3E<U, R, E1, E2, E3> apply(final T t) throws E1, E2, E3 {
+        return u -> apply(t, u);
+    }
+
+    /**
      * Returns a composed function that first applies this function to
      * its input, and then applies the {@code after} function to the result.
      * If evaluation of either function throws an exception, it is relayed to

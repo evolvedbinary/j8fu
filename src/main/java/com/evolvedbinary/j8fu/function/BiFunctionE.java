@@ -61,6 +61,18 @@ public interface BiFunctionE<T, U, R, E extends Throwable> {
     R apply(final T t, final U u) throws E;
 
     /**
+     * Partially applies this function to the given argument.
+     *
+     * @param t the first function argument
+     * @return the partially applied function
+     *
+     * @throws E An exception of type {@code E}
+     */
+    default FunctionE<U, R, E> apply(final T t) throws E {
+        return u -> apply(t, u);
+    }
+
+    /**
      * Returns a composed function that first applies this function to
      * its input, and then applies the {@code after} function to the result.
      * If evaluation of either function throws an exception, it is relayed to
