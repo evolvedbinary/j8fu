@@ -288,4 +288,26 @@ public interface OptionalUtil {
         return optional.map(Arrays::asList)
             .orElse(Collections.emptyList());
     }
+
+    /**
+     * Flattens an Optional of Optional, to an Optional.
+     *
+     * @param optional the optional of optional
+     *
+     * @return the Optional
+     */
+    static <T> Optional<T> flatten(final Optional<Optional<T>> optional) {
+        return optional.orElse(Optional.empty());
+    }
+
+    /**
+     * Flattens an Optional of Optional of Optional, to an Optional.
+     *
+     * @param optional the optional of optional of optional
+     *
+     * @return the Optional
+     */
+    static <T> Optional<T> flatten2(final Optional<Optional<Optional<T>>> optional) {
+        return optional.orElse(Optional.empty()).orElse(Optional.empty());
+    }
 }
