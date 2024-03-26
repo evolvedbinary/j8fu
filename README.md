@@ -1,6 +1,6 @@
 # Java 8 Functional Utilities
 
-[![Build Status](https://travis-ci.com/evolvedbinary/j8fu.png?branch=master)](https://travis-ci.com/evolvedbinary/j8fu)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/evolvedbinary/j8fu/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/evolvedbinary/j8fu/tree/main)
 [![Coverage Status](https://coveralls.io/repos/github/evolvedbinary/j8fu/badge.svg?branch=master)](https://coveralls.io/github/evolvedbinary/j8fu?branch=master)
 [![Java 8](https://img.shields.io/badge/java-8-blue.svg)](https://adoptopenjdk.net/)
 [![License](https://img.shields.io/badge/license-BSD%203-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
