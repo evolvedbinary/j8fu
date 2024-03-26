@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.com/evolvedbinary/j8fu.png?branch=master)](https://travis-ci.com/evolvedbinary/j8fu)
 [![Coverage Status](https://coveralls.io/repos/github/evolvedbinary/j8fu/badge.svg?branch=master)](https://coveralls.io/github/evolvedbinary/j8fu?branch=master)
+[![Java 8](https://img.shields.io/badge/java-8-blue.svg)](https://adoptopenjdk.net/)
+[![License](https://img.shields.io/badge/license-BSD%203-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
 
 Some extra utility classes for making functional programming with Java 8
 just that little bit easier.
