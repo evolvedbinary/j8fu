@@ -183,6 +183,10 @@ public interface OptionalUtil {
      * with {@code null} as the left argument.
      *
      * @param optional the optional to create an Either from.
+     *
+     * @param <L> The type of the left value
+     * @param <R> The type of the right value
+     *
      * @return The disjunction.
      */
     static <L, R> Either<L,R> toEither(final Optional<R> optional) {
@@ -198,6 +202,10 @@ public interface OptionalUtil {
      * with {@code Optional.empty()} as the left argument.
      *
      * @param optional the optional to create an Either from.
+     *
+     * @param <L> The type of the left value
+     * @param <R> The type of the right value
+     *
      * @return The disjunction.
      */
     static <L, R> Either<Optional<L>, R> toEitherOpt(final Optional<R> optional) {
@@ -211,6 +219,9 @@ public interface OptionalUtil {
      * @param left The optional which could form the left
      * @param right The value for the right, if the optional is empty
      *
+     * @param <L> The type of the left value
+     * @param <R> The type of the right value
+     *
      * @return The disjunction.
      */
     static <L, R> Either<L,R> toLeft(final Optional<L> left, final R right) {
@@ -222,6 +233,9 @@ public interface OptionalUtil {
      *
      * @param left The optional which could form the left
      * @param right The value for the right, if the optional is empty
+     *
+     * @param <L> The type of the left value
+     * @param <R> The type of the right value
      *
      * @return The disjunction.
      */
@@ -236,6 +250,9 @@ public interface OptionalUtil {
      * @param left The value for the left, if the optional is empty
      * @param right The optional which could form the right
      *
+     * @param <L> The type of the left value
+     * @param <R> The type of the right value
+     *
      * @return The disjunction.
      */
     static <L, R> Either<L,R> toRight(final L left, final Optional<R> right) {
@@ -247,6 +264,9 @@ public interface OptionalUtil {
      *
      * @param left The value for the left, if the optional is empty
      * @param right The optional which could form the right
+     *
+     * @param <L> The type of the left value
+     * @param <R> The type of the right value
      *
      * @return The disjunction.
      */
@@ -294,6 +314,8 @@ public interface OptionalUtil {
      *
      * @param optional the optional of optional
      *
+     * @param <T> The type of the value contained in the Optional.
+     *
      * @return the Optional
      */
     static <T> Optional<T> flatten(final Optional<Optional<T>> optional) {
@@ -304,6 +326,8 @@ public interface OptionalUtil {
      * Flattens an Optional of Optional of Optional, to an Optional.
      *
      * @param optional the optional of optional of optional
+     *
+     * @param <T> The type of the value contained in the Optional.
      *
      * @return the Optional
      */
