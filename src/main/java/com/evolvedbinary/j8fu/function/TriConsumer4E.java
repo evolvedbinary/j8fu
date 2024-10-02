@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright © 2016, Evolved Binary Ltd. <tech@evolvedbinary.com>
  * All rights reserved.
  *

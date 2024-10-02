@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright © 2016, Evolved Binary Ltd. <tech@evolvedbinary.com>
  * All rights reserved.
  *
@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package com.evolvedbinary.j8fu;
 
 import org.junit.Test;

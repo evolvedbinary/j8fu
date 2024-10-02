@@ -91,19 +91,23 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>4.5</version>
                 <configuration>
-                    <header>com/mycila/maven/plugin/license/templates/BSD-3.txt</header>
-                    <failIfMissing>true</failIfMissing>
-                    <aggregate>true</aggregate>
-                    <strictCheck>true</strictCheck>
                     <properties>
                         <owner>${project.organization.name} &lt;${contact.email}&gt;</owner>
                     </properties>
-                    <excludes>
-                        <exclude>**/pom.xml</exclude>
-                        <exclude>**/README.md</exclude>
-                        <exclude>**/LICENSE</exclude>
-                        <exclude>src/main/resources/**</exclude>
-                    </excludes>
+                    <licenseSets>
+                        <licenseSet>
+                            <header>com/mycila/maven/plugin/license/templates/BSD-3.txt</header>
+                            <excludes>
+                                <exclude>**/pom.xml</exclude>
+                                <exclude>**/README.md</exclude>
+                                <exclude>**/LICENSE</exclude>
+                                <exclude>src/main/resources/**</exclude>
+                            </excludes>
+                        </licenseSet>
+                    </licenseSets>
+                    <failIfMissing>true</failIfMissing>
+                    <aggregate>true</aggregate>
+                    <strictCheck>true</strictCheck>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
                 <executions>
